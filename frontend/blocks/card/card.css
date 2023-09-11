@@ -1,0 +1,14 @@
+@import url(../card/__name/__name.css);
+@import url(../card/__title/__title.css);
+@import url(../card/__image/__image.css);
+@import url(../card/__photo/__photo.css);
+@import url(../card/__like/__like.css);
+
+.card{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+  max-width: 282px;
+  width: 282px;
+  height: 361px;
+}

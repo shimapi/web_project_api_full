@@ -1,0 +1,7 @@
+.card__name{
+  background-color: #fff;
+  border-radius: 0 0 12px 12px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+}

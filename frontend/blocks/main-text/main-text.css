@@ -1,0 +1,13 @@
+@import url(../main-text/__about/__about.css);
+@import url(../main-text/__container/__container.css);
+@import url(../main-text/__name/__name.css);
+
+@media only screen and (min-width: 881px) {
+  .main-text{
+    display: flex;
+    justify-content: center;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    padding: 0 20px;
+  }
+}

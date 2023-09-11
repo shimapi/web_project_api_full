@@ -1,0 +1,13 @@
+.upload{
+  padding: 0 19px;
+  width: 100%;
+}
+
+@media only screen and (min-width: 880px) {
+  .upload{
+    display: flex;
+    padding: 38px 0 15px;
+    width: 20%;
+    align-items: center;
+  }
+}

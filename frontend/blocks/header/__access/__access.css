@@ -1,0 +1,18 @@
+.header__access a {
+	text-decoration: none;
+	color: #fff;
+}
+.header__access a:hover,
+.header__access a:active {
+	text-decoration: underline;
+}
+
+@media only screen and (min-width: 321px) and (max-width: 879px) {
+	.header__access {
+		width: 50%;
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-end;
+		word-break: break-all;
+	}
+}

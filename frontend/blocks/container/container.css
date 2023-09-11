@@ -1,0 +1,28 @@
+
+@media only screen and (max-width: 320px) {
+  .container{
+    display: flex;
+    flex-wrap: wrap;
+    width: 320px;
+    margin: 0 auto;
+  }
+}
+
+@media only screen and (min-width: 321px) and (max-width: 879px) {
+  .container{
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 768px;
+    margin: 0 auto;
+    gap: 17px;
+  }  
+}
+
+@media only screen and (min-width: 880px) {
+  .container{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 auto;
+    max-width: 880px;
+  }  
+}

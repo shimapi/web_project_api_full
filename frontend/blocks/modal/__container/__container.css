@@ -1,0 +1,17 @@
+.modal__container {
+  background-color: #fefefe;
+  margin: 0 auto;
+  padding: 30px 20px;
+  border: 1px solid #888;
+  max-width: 282px;
+  color: #000;
+  position: relative;
+  top: 35%;
+  border-radius: 10px;
+}
+
+@media only screen and (min-width: 768px)  {
+  .modal__container {
+    max-width: 430px;
+  }
+}

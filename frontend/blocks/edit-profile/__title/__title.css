@@ -1,0 +1,15 @@
+
+.edit-profile__title{
+  font-size: 18px;
+  font-weight: 900;
+  margin-bottom: 30px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+@media only screen and (min-width: 768px)  {
+  .edit-profile__title{
+    font-size: 24px;
+  }
+}

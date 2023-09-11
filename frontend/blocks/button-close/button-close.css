@@ -1,0 +1,35 @@
+.button-close {
+	transform: rotate(45deg);
+	position: absolute;
+	top: -40px;
+	right: 0;
+	background: url("../../images/add.svg") no-repeat top left;
+	background-size: contain;
+	width: 26px;
+	height: 26px;
+}
+.button-close:hover {
+	cursor: pointer;
+	opacity: 0.6;
+}
+.button-close:active {
+	cursor: pointer;
+	opacity: 0.8;
+}
+
+@media only screen and (min-width: 768px) {
+	.button-close {
+		right: -40px;
+		width: 40px;
+		height: 40px;
+	}
+}
+
+@media only screen and (min-width: 321px) and (max-width: 879px) {
+	.modal__without-form .button-close {
+		right: 40%;
+		top: -70px;
+		width: 40px;
+		height: 40px;
+	}
+}

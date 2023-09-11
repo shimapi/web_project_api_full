@@ -1,0 +1,16 @@
+@import url(../modal/__container/__container.css);
+@import url(../modal/__input/__input.css);
+
+.modal {
+	position: fixed;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	overflow: auto;
+	background-color: rgba(0, 0, 0, 0.6);
+	opacity: 0;
+	visibility: hidden;
+	transition: visibility 0.2s, opacity 0.2s linear;
+	z-index: 3;
+}

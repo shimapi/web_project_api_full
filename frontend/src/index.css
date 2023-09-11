@@ -1,0 +1,41 @@
+@import url(./vendor/normalize.css);
+@import url(./vendor/fonts.css);
+@import url(./blocks/container/container.css);
+@import url(./blocks/header/header.css);
+@import url(./blocks/owner/owner.css);
+@import url(./blocks/avatar/avatar.css);
+@import url(./blocks/avatar/avatar__circle.css);
+@import url(./blocks/avatar/avatar__edit.css);
+@import url(./blocks/main-text/main-text.css);
+@import url(./blocks/main/main.css);
+@import url(./blocks/card/card.css);
+@import url(./blocks/upload/upload.css);
+@import url(./blocks/button/button.css);
+@import url(./blocks/modal/modal.css);
+@import url(./blocks/modal_active/modal_active.css);
+@import url(./blocks/edit-profile/edit-profile.css);
+@import url(./blocks/footer/footer.css);
+@import url(./blocks/photo-popup/photo-popup.css);
+@import url(./blocks/button-edit/button-edit.css);
+@import url(./blocks/button-add/button-add.css);
+@import url(./blocks/button-close/button-close.css);
+@import url(./blocks/button-save/button-save.css);
+@import url(./blocks/button-like/button-like.css);
+@import url(./blocks/count-likes/count-likes.css);
+@import url(./blocks/button-delete/button-delete.css);
+@import url(./blocks/button-inactive/button-inactive.css);
+@import url(./blocks/form/__input/form__input.css);
+@import url(./blocks/form/__input/form__input-error.css);
+@import url(./blocks/access/__access.css);
+
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	border: 0;
+}
+body {
+	color: #fff;
+	font-family: Inter, sans-serif;
+	background-color: #000;
+}

@@ -1,0 +1,6 @@
+.button-add{
+  width: 100%;
+  height: 50px;
+  margin-bottom: 30px;
+  background: url('../../images/add.svg') no-repeat center center;
+}

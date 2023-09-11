@@ -1,0 +1,20 @@
+.avatar__edit {
+  position: absolute;
+  border-radius: 50%;
+  height: 120px;
+  width: 120px;
+  margin-bottom: 20px;
+  object-fit: cover;
+  transition: 0.8s ease-out;
+  background: rgba(0, 0, 0, 0.8) url("../../images/edit-profile.png") no-repeat
+    center;
+  opacity: 0;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.avatar__edit:hover {
+  opacity: 1;
+  transition: 0.8s ease-out;
+  transform: rotate(360deg);
+}

@@ -1,0 +1,9 @@
+.photo-popup__container {
+  margin: 0 auto;
+  max-width: 65vw;
+  max-height: 65vh;
+  object-fit: contain;
+  color: #000;
+  position: relative;
+  top: 15%;
+}

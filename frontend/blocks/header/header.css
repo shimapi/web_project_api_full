@@ -1,0 +1,16 @@
+@import url(../header/__logo/__logo.css);
+@import url(../header/__access/__access.css);
+
+.header{
+  padding: 28px 27px;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+@media only screen and (min-width: 880px) {
+  .header{
+    padding: 28px 0;
+    border-bottom: rgba(84, 84, 84, 0.7) 1px solid;
+  }
+}
