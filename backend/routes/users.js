@@ -1,9 +1,71 @@
 const express = require('express');
-const User = require('../models/user');
+
+const userController = require('../controllers/users');
+const authorize = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/users', async (req, res) => {
+/* router.post('/', (req, res) => {
+  userController.createUser(req, res);
+});
+
+router.post('/login', (req, res) => {
+  userController.login(req, res);
+}); */
+
+router.get('/users', authorize, (req, res) => {
+  userController.getUsers(req, res);
+});
+
+router.get('/users/:userId', authorize, (req, res) => {
+  userController.getUserbyId(req, res);
+});
+
+router.patch('users/me', authorize, (req, res) => {
+  userController.updateUserProfile(req, res);
+});
+
+router.patch('users/me/avatar', authorize, (req, res) => {
+  userController.updateUserAvatar(req, res);
+});
+
+module.exports = router;
+
+/* const express = require('express');
+
+const router = express.Router();
+const userController = require('../controllers/users');
+
+router.post('/', (req, res) => {
+  res.send('Creando usuario', res);
+  return userController.createUser;
+});
+router.get('/users', (req, res) => {
+  res.send('Obteniendo usuarios');
+  userController.getUsers(req, res);
+});
+
+router.get('/users/:userId', (req, res) => {
+  res.status(200).send('Obteniendo usuarios');
+  userController.getUserbyId(req, res);
+});
+
+router.patch('/me', (req, res) => {
+  res.send('Actualizando usuario');
+  userController.updateUserProfile(req, res);
+});
+
+router.patch('/me/avatar', (req, res) => {
+  res.send('Actualizando avatar del usuario');
+  userController.updateUserAvatar(req, res);
+});
+
+module.exports = router; */
+
+/* router.get('/users', userController.getUsers);
+router.get('/users/:userId', userController.getUserbyId); */
+
+/* router.get('/users', async (req, res) => {
   try {
     const users = await User.find();
     res.status(200).json({ users });
@@ -33,6 +95,4 @@ router.post('/users', async (req, res) => {
   } catch (error) {
     res.status(400).json({ error: 'Error al crear el usuario' });
   }
-});
-
-module.exports = router;
+}); */

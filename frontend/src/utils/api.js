@@ -20,13 +20,34 @@ export class Api {
 		return Promise.reject(`Error: ${res.status}`);
 	}
 
-	async getProfileInitialInfo() {
+/* 	async getProfileInitialInfo() {
 		const profileInitialInfo = await this._useFetch(
 			`${this.originURL}/users/me`,
 			"GET"
 		);
 		return profileInitialInfo;
+	} */
+	async getProfileInitialInfo() {
+		const token = localStorage.getItem("userToken"); // Obtiene el token de localStorage
+		const tokenIsValid = await this.checkUserToken(token); // Cambia la URL a la página de inicio de sesión
+	
+		if (!tokenIsValid) {
+			window.location.href = '/login';
+			return { error: "Token no válido" };
+		}
+	
+		const profileInitialInfo = await this._useFetch(
+			`${this.originURL}/users/me`,
+			"GET",
+			{},
+			{
+				Authorization: `Bearer ${token}`,
+			}
+		);
+	
+		return profileInitialInfo;
 	}
+	
 
 	async getCards() {
 		const cards = await this._useFetch(`${this.originURL}/cards`, "GET");
@@ -99,6 +120,10 @@ export class Api {
 				password,
 			}
 		);
+		  // Almacena el token en localStorage
+			if (newUser.token) {
+				localStorage.setItem("token", newUser.token);
+			}
 		return newUser;
 	}
 
@@ -111,6 +136,10 @@ export class Api {
 				password,
 			}
 		);
+		  // Almacena el token en localStorage
+			if (authUser.token) {
+				localStorage.setItem("token", authUser.token);
+			}
 		return authUser;
 	}
 

@@ -1,10 +1,11 @@
 const express = require('express');
 const Card = require('../models/card');
 const cardController = require('../controllers/cards');
+const authorize = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/cards', async (req, res) => {
+router.get('/cards', authorize, async (req, res) => {
   try {
     const cards = await Card.find();
     res.status(200).json({ cards });
