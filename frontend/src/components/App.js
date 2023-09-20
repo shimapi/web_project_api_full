@@ -29,11 +29,14 @@ function App() {
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [email, setEmail] = useState("");
 	const navigate = useNavigate();
+	const [token, setToken] = useState(localStorage.getItem('userToken'));
 
 	useEffect(() => {
 		async function handleToken() {
-			if (localStorage.getItem("userToken")) {
-				const token = localStorage.getItem("userToken");
+			const storedToken = localStorage.getItem('userToken');
+			if (storedToken) {
+				// const token = localStorage.getItem("userToken");
+				setToken(storedToken);
 				const response = await api.checkUserToken(token);
 				const userData = await response.json();
 				if (userData.data.email) {

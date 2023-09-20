@@ -1,13 +1,12 @@
 export class Api {
 	constructor() {
-		this.authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
 		this.originURL = "https://around.nomoreparties.co/v1/web_es_cohort_03";
 	}
 
 	async _useFetch(url, method, body) {
 		const res = await fetch(url, {
 			headers: {
-				authorization: this.authorization,
+				authorization: `Bearer ${localStorage.getItem('userToken')}`,
 				"Content-Type": "application/json",
 			},
 			method,
