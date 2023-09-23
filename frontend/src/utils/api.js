@@ -1,12 +1,13 @@
 export class Api {
 	constructor() {
-		this.originURL = "https://around.nomoreparties.co/v1/web_es_cohort_03";
+		this.authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
+		this.originURL = "http://localhost:3005";
 	}
 
 	async _useFetch(url, method, body) {
 		const res = await fetch(url, {
 			headers: {
-				authorization: `Bearer ${localStorage.getItem('userToken')}`,
+				// authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
 			},
 			method,
@@ -19,34 +20,13 @@ export class Api {
 		return Promise.reject(`Error: ${res.status}`);
 	}
 
-/* 	async getProfileInitialInfo() {
+	async getProfileInitialInfo() {
 		const profileInitialInfo = await this._useFetch(
 			`${this.originURL}/users/me`,
 			"GET"
 		);
 		return profileInitialInfo;
-	} */
-	async getProfileInitialInfo() {
-		const token = localStorage.getItem("userToken"); // Obtiene el token de localStorage
-		const tokenIsValid = await this.checkUserToken(token); // Cambia la URL a la página de inicio de sesión
-	
-		if (!tokenIsValid) {
-			window.location.href = '/login';
-			return { error: "Token no válido" };
-		}
-	
-		const profileInitialInfo = await this._useFetch(
-			`${this.originURL}/users/me`,
-			"GET",
-			{},
-			{
-				Authorization: `Bearer ${token}`,
-			}
-		);
-	
-		return profileInitialInfo;
 	}
-	
 
 	async getCards() {
 		const cards = await this._useFetch(`${this.originURL}/cards`, "GET");
@@ -71,8 +51,8 @@ export class Api {
 		return profileAvatar;
 	}
 
-	async addNewCard(name, link) {
-		const newCard = await this._useFetch(`${this.originURL}/cards`, "POST", {
+	async addNewCard(token, name, link) {
+		const newCard = await this._useFetch(token, `${this.originURL}/cards`, "POST", {
 			name,
 			link,
 		});
@@ -119,28 +99,10 @@ export class Api {
 				password,
 			}
 		);
-		  // Almacena el token en localStorage
-			if (newUser.token) {
-				localStorage.setItem("token", newUser.token);
-			}
 		return newUser;
 	}
 
-	async authorizeUser(email, password) {
-		const authUser = await this._useFetch(
-			`https://register.nomoreparties.co/signin`,
-			"POST",
-			{
-				email,
-				password,
-			}
-		);
-		  // Almacena el token en localStorage
-			if (authUser.token) {
-				localStorage.setItem("token", authUser.token);
-			}
-		return authUser;
-	}
+
 
 	async checkUserToken(token) {
 		return fetch("https://register.nomoreparties.co/users/me", {

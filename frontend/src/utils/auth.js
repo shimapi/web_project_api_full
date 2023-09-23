@@ -9,12 +9,28 @@ export const registerUser = async (email, password) => {
 	return await api.registerUser(email, password);
 };
 
+
+
+
 export const authorizeUser = async (email, password) => {
-	const response = await api.authorizeUser(email, password);
-	if (response.token) {
-		localStorage.setItem("userToken", response.token);
-		return response.token;
+	// fetch(localhost) mail pass POST header applcation JSON
+	const res = await fetch('http://localhost:3000/signin', {
+		headers: {
+			"Content-Type": "application/json",
+		},
+		method: 'POST',
+		body: JSON.stringify({email, password}),
+	});
+
+	if (res.ok) { // Replicar en register
+		const response = await res.json();
+		if (response.token) {
+			localStorage.setItem("userToken", response.token);
+			return response.token;
+		}
 	}
+	return Promise.reject(`Error: ${res.status}`);
+	
 };
 
 export const authToken = async (token) => {

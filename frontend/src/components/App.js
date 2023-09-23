@@ -28,44 +28,48 @@ function App() {
 	const [cards, setCards] = useState([]);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [email, setEmail] = useState("");
+	const [token, setToken] = useState('');
 	const navigate = useNavigate();
-	const [token, setToken] = useState(localStorage.getItem('userToken'));
 
 	useEffect(() => {
 		async function handleToken() {
-			const storedToken = localStorage.getItem('userToken');
-			if (storedToken) {
-				// const token = localStorage.getItem("userToken");
-				setToken(storedToken);
+			if (localStorage.getItem("userToken")) {
+				const token = localStorage.getItem("userToken");
 				const response = await api.checkUserToken(token);
 				const userData = await response.json();
 				if (userData.data.email) {
 					setLoggedIn(true);
+					setToken(token);
 					setEmail(userData.data.email);
 					navigate("/");
 				}
 			}
 		}
 		handleToken();
-	}, []);
+	}, [token]);
 
 	useEffect(() => {
-		api.getCards().then((res) => {
-			setCards(res);
-		});
-	}, []);
-
-	useEffect(() => {
-		api
-			.getProfileInitialInfo()
-			.then((res) => {
-				setCurrentUser({ ...res, email });
-				currentUserContext.setCurrentUser({ ...res, email });
-			})
-			.catch((error) => {
-				console.log(error);
+		if ( token ) {
+			api.getCards().then((res) => {
+				setCards(res);
 			});
-	}, []);
+		}
+
+	}, [token]);
+
+	useEffect(() => {
+		if ( token ) {
+			api
+				.getProfileInitialInfo()
+				.then((res) => {
+					setCurrentUser({ ...res, email });
+					currentUserContext.setCurrentUser({ ...res, email });
+				})
+				.catch((error) => {
+					console.log(error);
+				});
+		}
+	}, [token]);
 
 	function handleCardLike(card) {
 		const isLiked = card.likes.some((i) => i._id === currentUser._id);
@@ -75,7 +79,7 @@ function App() {
 		});
 	}
 	function handleAddPlace(name, link) {
-		api.addNewCard(name, link).then((data) => {
+		api.addNewCard(token, name, link).then((data) => {
 			setCards([data, ...cards]);
 			closeAllPopups();
 		});

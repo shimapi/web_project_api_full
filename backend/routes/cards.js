@@ -14,13 +14,15 @@ router.get('/cards', authorize, async (req, res) => {
   }
 });
 
-router.post('/cards', async (req, res) => {
+router.post('/cards', authorize, async (req, res) => {
   const {
-    name, link, owner, likes,
+    name, link,
   } = req.body;
+  const { _id } = req.user; // owner = _id
+  console.log(req.body);
   try {
     const newCard = await Card.create({
-      name, link, owner, likes,
+      name, link, owner: _id,
     });
     res.status(201).json(newCard);
   } catch (error) {
