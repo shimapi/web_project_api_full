@@ -2,6 +2,9 @@ const bcrypt = require('bcryptjs');
 const { generateToken } = require('../utils/utils');
 
 const User = require('../models/user');
+const {
+  ServerError, NotAuthorized, BadRequest, Conflict,
+} = require('../middlewares/errors');
 
 /*
 const express = require('express');
@@ -29,12 +32,13 @@ const login = async (req, res) => {
     const user = await User.findUserByCredentials(email, password);
 
     if (user && user instanceof Error) {
-      return res.status(401).send({ message: user.message });
+      return NotAuthorized(user.message);
     }
     const token = await generateToken(user);
     return res.status(200).send({ token });
   } catch (error) {
-    return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });
+    // return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });
+    return NotAuthorized('e-mail o contraseña incorrectos');
   }
 };
 /* const login = async (req, res) => {
@@ -63,7 +67,7 @@ const createUser = async (req, res) => {
     } = req.body;
     const userExists = await doesUserExist(email);
     if (userExists) {
-      return res.status(409).send({ message: 'Mail ya registrado anteriormente' });
+      return Conflict('Mail ya registrado anteriormente');
     }
     const hashedPassword = await hashPassword(password);
     const newUser = await User.create({
@@ -76,9 +80,9 @@ const createUser = async (req, res) => {
     return res.status(201).send({ data: newUser });
   } catch (error) {
     if (error.name === 'ValidationError') {
-      return res.status(400).send({ error: 'Error en la validacion de los datos', details: error });
+      return BadRequest('Error en la validacion de los datos');
     }
-    return res.status(500).send({ error: 'Error al crear el usuario en el servidor' });
+    return ServerError('Error al crear el usuario en el servidor');
   }
 };
 
@@ -90,9 +94,9 @@ const updateUserProfile = async (req, res) => {
       { name, about },
       { new: true },
     );
-    res.status(200).send(updatedUser);
+    return res.status(200).send(updatedUser);
   } catch (error) {
-    res.status(400).send({ error: 'Error al actualizar el perfil del usuario' });
+    return BadRequest('Error al actualizar el perfil del usuario');
   }
 };
 
@@ -104,9 +108,10 @@ const updateUserAvatar = async (req, res) => {
       { avatar },
       { new: true },
     );
-    res.status(200).send(updatedUser);
+    return res.status(200).send(updatedUser);
   } catch (error) {
-    res.status(400).send({ error: 'Error al actualizar el avatar del usuario' });
+    // res.status(400).send({ error: 'Error al actualizar el avatar del usuario' });
+    return BadRequest('Error al actualizar el avatar del usuario');
   }
 };
 
