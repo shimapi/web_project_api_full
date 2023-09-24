@@ -35,6 +35,7 @@ const login = async (req, res) => {
       return NotAuthorized(user.message);
     }
     const token = await generateToken(user);
+    // return res.status(200).send({ token });
     return res.status(200).send({ token });
   } catch (error) {
     // return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });

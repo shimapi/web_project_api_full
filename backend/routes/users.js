@@ -5,14 +5,6 @@ const authorize = require('../middlewares/auth');
 
 const router = express.Router();
 
-/* router.post('/', (req, res) => {
-  userController.createUser(req, res);
-});
-
-router.post('/login', (req, res) => {
-  userController.login(req, res);
-}); */
-
 router.get('/users', authorize, (req, res) => {
   userController.getUsers(req, res);
 });
@@ -30,6 +22,14 @@ router.patch('users/me/avatar', authorize, (req, res) => {
 });
 
 module.exports = router;
+
+/* router.post('/', (req, res) => {
+  userController.createUser(req, res);
+});
+
+router.post('/login', (req, res) => {
+  userController.login(req, res);
+}); */
 
 /* const express = require('express');
 

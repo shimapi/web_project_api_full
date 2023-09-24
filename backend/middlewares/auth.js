@@ -1,11 +1,13 @@
 const jwt = require('jsonwebtoken');
-const NotAuthorized = require('../errors/NotAuthorized');
+const {
+  NotAuthorized,
+} = require('./errors');
 
 const authorize = async (req, res, next) => {
   const headerAuth = req.header('Authorization');
 
   if (!headerAuth) {
-    throw new NotAuthorized('Acceso no autorizado');
+    return NotAuthorized('Acceso no autorizado');
   }
 
   const token = headerAuth.replace('Bearer ', '');
@@ -24,7 +26,7 @@ const authorize = async (req, res, next) => {
   } catch (err) {
     // return res.status(403).send({ message: 'El token no es válido' });
     console.log(err);
-    throw new NotAuthorized('El token no es válido');
+    return NotAuthorized('El token no es válido');
   }
 };
 

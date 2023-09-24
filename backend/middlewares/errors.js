@@ -10,15 +10,15 @@ const NotAuthorized = (message) => {
   return error;
 };
 
-const NotFoundError = (message) => {
+const Forbidden = (message) => {
   const error = new Error(message);
-  error.statusCode = 404;
+  error.statusCode = 403;
   return error;
 };
 
-const ServerError = (message) => {
+const NotFoundError = (message) => {
   const error = new Error(message);
-  error.statusCode = 500;
+  error.statusCode = 404;
   return error;
 };
 
@@ -28,9 +28,9 @@ const Conflict = (message) => {
   return error;
 };
 
-const Forbidden = (message) => {
+const ServerError = (message) => {
   const error = new Error(message);
-  error.statusCode = 403;
+  error.statusCode = 500;
   return error;
 };
 
