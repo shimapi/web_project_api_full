@@ -1,11 +1,14 @@
 const Card = require('../models/card');
+const {
+  ServerError, BadRequest, NotFoundError,
+} = require('../middlewares/errors');
 
 exports.getAllCards = async (req, res) => {
   try {
     const cards = await Card.find();
     return res.status(200).json({ cards });
   } catch (error) {
-    return res.status(500).json({ error: 'Error al obtener las cards' });
+    return ServerError('Error al obtener las cards');
   }
 };
 
@@ -15,7 +18,7 @@ exports.createCard = async (req, res) => {
     const newCard = await Card.create({ name, link, owner });
     return res.status(201).json(newCard);
   } catch (error) {
-    return res.status(400).json({ error: 'Error al crear la card' });
+    return BadRequest('Error al crear la card');
   }
 };
 
@@ -24,11 +27,11 @@ exports.deleteCardById = async (req, res) => {
   try {
     const deletedCard = await Card.findByIdAndDelete(cardId);
     if (!deletedCard) {
-      return res.status(404).json({ error: 'Card no encontrada' });
+      return NotFoundError('Card no encontrada');
     }
     return res.status(200).json({ message: 'Card eliminada correctamente' });
   } catch (error) {
-    return res.status(500).json({ error: 'Error al eliminar la Card' });
+    return ServerError('Error al eliminar la Card');
   }
 };
 
@@ -41,7 +44,7 @@ exports.likeCard = async (req, res) => {
     );
     return res.status(200).json(updatedCard);
   } catch (error) {
-    return res.status(400).json({ error: 'Error al dar like a la Card' });
+    return BadRequest('Error al dar like a la Card');
   }
 };
 
@@ -54,6 +57,6 @@ exports.dislikeCard = async (req, res) => {
     );
     return res.status(200).json(updatedCard);
   } catch (error) {
-    return res.status(400).json({ error: 'Error al dar unlike a la Card' });
+    return BadRequest('Error al dar unlike a la Card');
   }
 };

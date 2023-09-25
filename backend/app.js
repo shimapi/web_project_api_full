@@ -4,6 +4,9 @@ const cors = require('cors');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const userController = require('./controllers/users');
+const {
+  ServerError, NotFoundError,
+} = require('./middlewares/errors');
 
 const app = express();
 app.use(express.json());
@@ -28,12 +31,21 @@ app.use(cards);
 app.get('/', (req, res) => {
   res.status(200).send('Hola, web funcionando');
 });
-app.use((error, req, res) => {
-  res.status(404).send({ error: '404: Recurso no encontrado' });
+
+app.use((error, req, res, next) => {
+  throw new NotFoundError('404: Recurso no encontrado');
 });
-app.use((error, req, res) => {
-  res.status(500).send({ error: '500: Error interno del servidor' });
+
+app.use((error, req, res, next) => {
+  throw new ServerError('500: Error interno del servidor');
 });
+
+/* app.use((error, req, res) => { throw new NotFoundError('404: Recurso no encontrado'); });
+// res.status(404).send({ error: '404: Recurso no encontrado' });
+
+app.use((error, req, res) => { throw new ServerError('500: Error interno del servidor'); });
+// res.status(500).send({ error: '500: Error interno del servidor' }); */
+
 app.use((error, req, res, next) => {
   res.send({ message: error.message });
 });

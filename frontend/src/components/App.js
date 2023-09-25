@@ -50,11 +50,12 @@ function App() {
 
 	useEffect(() => {
 		if ( token ) {
-			api.getCards().then((res) => {
-				setCards(res);
-			});
+			api
+				.getCards()
+				.then((res) => {
+					setCards(res);
+				});
 		}
-
 	}, [token]);
 
 	useEffect(() => {

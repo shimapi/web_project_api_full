@@ -14,19 +14,17 @@ const authorize = async (req, res, next) => {
 
   try {
     const payload = jwt.verify(token, 'developer');
-    console.log(payload);
+    console.log('payload', payload);
     if (!payload) {
-      return res.status(403).send({ message: 'El token no es válido' });
-      // throw new NotAuthorized('El token no es válido');
+      throw new NotAuthorized('El token no es válido');
     }
 
     req.user = payload;
     next();
     return req.user;
   } catch (err) {
-    // return res.status(403).send({ message: 'El token no es válido' });
-    console.log(err);
-    return NotAuthorized('El token no es válido');
+    console.log('err', err);
+    throw new NotAuthorized('El token no es válido');
   }
 };
 

@@ -92,7 +92,7 @@ export class Api {
 
 	async registerUser(email, password) {
 		const newUser = await this._useFetch(
-			`https://register.nomoreparties.co/signup`,
+			`${this.originURL}/signup`,
 			"POST",
 			{
 				email,
@@ -105,7 +105,7 @@ export class Api {
 
 
 	async checkUserToken(token) {
-		return fetch("https://register.nomoreparties.co/users/me", {
+		return fetch(`${this.originURL}/users/me`, {
 			method: "GET",
 			headers: {
 				authorization: `Bearer ${token}`,
