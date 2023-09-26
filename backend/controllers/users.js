@@ -2,17 +2,6 @@ const bcrypt = require('bcryptjs');
 const { generateToken } = require('../utils/utils');
 
 const User = require('../models/user');
-const {
-  ServerError, NotAuthorized, BadRequest, Conflict,
-} = require('../middlewares/errors');
-
-/*
-const express = require('express');
-const router = express.Router();
-const cardController = require('./cards');
-router.get('/cards', cardController.getAllCards);
-router.post('/cards', cardController.createCard);
-router.delete('/cards/:cardId', cardController.deleteCardById); */
 
 const doesUserExist = async (email) => {
   let user;
@@ -32,34 +21,14 @@ const login = async (req, res) => {
     const user = await User.findUserByCredentials(email, password);
 
     if (user && user instanceof Error) {
-      return NotAuthorized(user.message);
+      return res.status(403).send(user.message);
     }
     const token = await generateToken(user);
-    // return res.status(200).send({ token });
     return res.status(200).send({ token });
   } catch (error) {
-    // return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });
-    return NotAuthorized('e-mail o contraseña incorrectos');
+    return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });
   }
 };
-/* const login = async (req, res) => {
-  const { email, password } = req.body;
-  try {
-    const userOrError = await User.findUserByCredentials(email, password);
-
-    if (typeof userOrError === 'string') {
-      // Enviar un error 401 con el mensaje de error
-      return res.status(401).send({ message: userOrError });
-    }
-
-    // Continuar con la generación del token y enviarlo
-    const token = await generateToken(userOrError);
-    console.log('token', token);
-    return res.send({ token });
-  } catch (error) {
-    return res.status(500).send({ message: 'Error en el servidor', details: error });
-  }
-}; */
 
 const createUser = async (req, res) => {
   try {
@@ -68,7 +37,7 @@ const createUser = async (req, res) => {
     } = req.body;
     const userExists = await doesUserExist(email);
     if (userExists) {
-      return Conflict('Mail ya registrado anteriormente');
+      return res.status(409).send('Mail ya registrado anteriormente');
     }
     const hashedPassword = await hashPassword(password);
     const newUser = await User.create({
@@ -81,9 +50,9 @@ const createUser = async (req, res) => {
     return res.status(201).send({ data: newUser });
   } catch (error) {
     if (error.name === 'ValidationError') {
-      return BadRequest('Error en la validacion de los datos');
+      return res.status(400).send('Error en la validacion de los datos');
     }
-    return ServerError('Error al crear el usuario en el servidor');
+    return res.status(500).send('Error al crear el usuario en el servidor');
   }
 };
 
@@ -93,9 +62,9 @@ const getUserbyId = async (req, res) => {
     const user = await User.findById(_id);
     return res.status(200).send(user);
   } catch (error) {
-    return new Error('Ha ocurrido un error en el servidor al buscar el usuario');
+    return res.status(500).send('Ha ocurrido un error en el servidor al buscar el usuario');
   }
-}
+};
 
 const updateUserProfile = async (req, res) => {
   const { name, about } = req.body;
@@ -107,7 +76,7 @@ const updateUserProfile = async (req, res) => {
     );
     return res.status(200).send(updatedUser);
   } catch (error) {
-    return BadRequest('Error al actualizar el perfil del usuario');
+    return res.status(400).send('Error al actualizar el perfil del usuario');
   }
 };
 
@@ -121,8 +90,7 @@ const updateUserAvatar = async (req, res) => {
     );
     return res.status(200).send(updatedUser);
   } catch (error) {
-    // res.status(400).send({ error: 'Error al actualizar el avatar del usuario' });
-    return BadRequest('Error al actualizar el avatar del usuario');
+    return res.status(400).send({ error: 'Error al actualizar el avatar del usuario' });
   }
 };
 

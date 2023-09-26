@@ -2,26 +2,23 @@ const express = require('express');
 const Card = require('../models/card');
 const cardController = require('../controllers/cards');
 const authorize = require('../middlewares/auth');
-const {
-  ServerError, BadRequest,
-} = require('../middlewares/errors');
 
 const router = express.Router();
 
-router.get('/cards', authorize, async (req, res) => {
+router.get('/', authorize, async (req, res) => {
   try {
     const cards = await Card.find();
     return res.status(200).json({ cards });
   } catch (error) {
-    return ServerError('Error al obtener las cards');
+    return res.status(500).send('Error al obtener las cards');
   }
 });
 
-router.post('/cards', authorize, async (req, res) => {
+router.post('/', authorize, async (req, res) => {
   const {
     name, link,
   } = req.body;
-  const { _id } = req.user; // owner = _id
+  const { _id } = req.user;
   console.log(req.body);
   try {
     const newCard = await Card.create({
@@ -30,12 +27,12 @@ router.post('/cards', authorize, async (req, res) => {
     return res.status(201).json(newCard);
   } catch (error) {
     console.log(error);
-    return BadRequest('Error al crear la card');
+    return res.status(400).send('Error al crear la card');
   }
 });
 
-router.put('/cards/:cardId/likes', cardController.likeCard);
+router.put('/:cardId/likes', cardController.likeCard);
 
-router.delete('/cards/:cardId/likes', cardController.dislikeCard);
+router.delete('/:cardId/likes', cardController.dislikeCard);
 
 module.exports = router;
