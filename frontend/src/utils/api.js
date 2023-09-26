@@ -1,6 +1,5 @@
 export class Api {
 	constructor() {
-		// this.authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
 		this.originURL = "http://localhost:3005";
 	}
 
