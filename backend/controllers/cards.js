@@ -34,12 +34,15 @@ exports.deleteCardById = async (req, res) => {
 };
 
 exports.likeCard = async (req, res) => {
+  console.log('likeCard', req.user._id);
   try {
     const updatedCard = await Card.findByIdAndUpdate(
       req.params.cardId,
       { $addToSet: { likes: req.user._id } },
       { new: true },
     );
+    console.log(updatedCard);
+
     return res.status(200).json(updatedCard);
   } catch (error) {
     return res.status(400).send('Error al dar like a la Card', error);
@@ -47,12 +50,14 @@ exports.likeCard = async (req, res) => {
 };
 
 exports.dislikeCard = async (req, res) => {
+  console.log('dislikeCard', req.user._id);
   try {
     const updatedCard = await Card.findByIdAndUpdate(
       req.params.cardId,
       { $pull: { likes: req.user._id } },
       { new: true },
     );
+    console.log(updatedCard);
     return res.status(200).json(updatedCard);
   } catch (error) {
     return res.status(400).send('Error al dar unlike a la Card', error);

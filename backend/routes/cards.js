@@ -13,11 +13,11 @@ router.post('/', authorize, async (req, res) => {
   cardController.createCard(req, res);
 });
 
-router.put('/:cardId/likes', authorize, async (req, res) => {
+router.put('/likes/:cardId', authorize, async (req, res) => {
   cardController.likeCard(req, res);
 });
 
-router.delete('/:cardId/likes', authorize, async (req, res) => {
+router.delete('/likes/:cardId', authorize, async (req, res) => {
   cardController.dislikeCard(req, res);
 });
 module.exports = router;
