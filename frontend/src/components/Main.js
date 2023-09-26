@@ -42,7 +42,7 @@ const Main = (props) => {
 			</section>
 
 			<main className="main main-cards">
-				{props.cards.map((card) => {
+				{props.cards?.map((card) => {
 					return (
 						<Card
 							card={card}

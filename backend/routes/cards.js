@@ -29,6 +29,7 @@ router.post('/cards', authorize, async (req, res) => {
     });
     return res.status(201).json(newCard);
   } catch (error) {
+    console.log(error);
     return BadRequest('Error al crear la card');
   }
 });

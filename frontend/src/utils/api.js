@@ -1,13 +1,13 @@
 export class Api {
 	constructor() {
-		this.authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
+		// this.authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
 		this.originURL = "http://localhost:3005";
 	}
 
-	async _useFetch(url, method, body) {
+	async _useFetch(token, url, method, body) {
 		const res = await fetch(url, {
 			headers: {
-				// authorization: `Bearer ${token}`,
+				authorization: `Bearer ${token}`,
 				"Content-Type": "application/json",
 			},
 			method,
@@ -20,21 +20,23 @@ export class Api {
 		return Promise.reject(`Error: ${res.status}`);
 	}
 
-	async getProfileInitialInfo() {
+	async getProfileInitialInfo(token) {
 		const profileInitialInfo = await this._useFetch(
+			token,
 			`${this.originURL}/users/me`,
 			"GET"
 		);
 		return profileInitialInfo;
 	}
 
-	async getCards() {
-		const cards = await this._useFetch(`${this.originURL}/cards`, "GET");
+	async getCards(token) {
+		const cards = await this._useFetch(token,`${this.originURL}/cards`, "GET");
 		return cards;
 	}
 
-	async editProfileInfo(name, about) {
+	async editProfileInfo(token, name, about) {
 		const profileInfo = await this._useFetch(
+			token,
 			`${this.originURL}/users/me`,
 			"PATCH",
 			{ name, about }
@@ -42,8 +44,9 @@ export class Api {
 		return profileInfo;
 	}
 
-	async editProfileAvatar(avatar) {
+	async editProfileAvatar(token, avatar) {
 		const profileAvatar = await this._useFetch(
+			token,
 			`${this.originURL}/users/me/avatar`,
 			"PATCH",
 			{ avatar }
@@ -52,45 +55,48 @@ export class Api {
 	}
 
 	async addNewCard(token, name, link) {
-		const newCard = await this._useFetch(token, `${this.originURL}/cards`, "POST", {
+		const newCard = await this._useFetch(token,`${this.originURL}/cards`, "POST", {
 			name,
 			link,
 		});
 		return newCard;
 	}
 
-	async deleteCard(cardId) {
+	async deleteCard(token, cardId) {
 		const deletedCard = await this._useFetch(
+			token,
 			`${this.originURL}/cards/${cardId}`,
 			"DELETE"
 		);
 		return deletedCard;
 	}
 
-	async likeCard(cardId) {
+	async likeCard(token, cardId) {
 		const likesCard = await this._useFetch(
+			token,
 			`${this.originURL}/cards/likes/${cardId}`,
 			"PUT"
 		);
 		return likesCard;
 	}
 
-	async dislikeCard(cardId) {
+	async dislikeCard(token, cardId) {
 		const dislikesCard = await this._useFetch(
+			token,
 			`${this.originURL}/cards/likes/${cardId}`,
 			"DELETE"
 		);
 		return dislikesCard;
 	}
 
-	async changeLikeCardStatus(cardId, isLiked) {
+	async changeLikeCardStatus(token, cardId, isLiked) {
 		const changingLikeCardStatus = isLiked
-			? await this.dislikeCard(cardId)
-			: await this.likeCard(cardId);
+			? await this.dislikeCard(token, cardId)
+			: await this.likeCard(token, cardId);
 		return changingLikeCardStatus;
 	}
 
-	async registerUser(email, password) {
+/* 	async registerUser(email, password) {
 		const newUser = await this._useFetch(
 			`${this.originURL}/signup`,
 			"POST",
@@ -101,7 +107,7 @@ export class Api {
 		);
 		return newUser;
 	}
-
+ */
 
 
 	async checkUserToken(token) {

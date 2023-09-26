@@ -37,10 +37,10 @@ function App() {
 				const token = localStorage.getItem("userToken");
 				const response = await api.checkUserToken(token);
 				const userData = await response.json();
-				if (userData.data.email) {
+				if (userData.email) {
 					setLoggedIn(true);
 					setToken(token);
-					setEmail(userData.data.email);
+					setEmail(userData.email);
 					navigate("/");
 				}
 			}
@@ -51,9 +51,10 @@ function App() {
 	useEffect(() => {
 		if ( token ) {
 			api
-				.getCards()
+				.getCards(token)
 				.then((res) => {
-					setCards(res);
+					console.log(res);
+					setCards(res.cards);
 				});
 		}
 	}, [token]);
@@ -61,7 +62,7 @@ function App() {
 	useEffect(() => {
 		if ( token ) {
 			api
-				.getProfileInitialInfo()
+				.getProfileInitialInfo(token)
 				.then((res) => {
 					setCurrentUser({ ...res, email });
 					currentUserContext.setCurrentUser({ ...res, email });
@@ -75,7 +76,7 @@ function App() {
 	function handleCardLike(card) {
 		const isLiked = card.likes.some((i) => i._id === currentUser._id);
 
-		api.changeLikeCardStatus(card._id, isLiked).then((newCard) => {
+		api.changeLikeCardStatus(token, card._id, isLiked).then((newCard) => {
 			setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
 		});
 	}
@@ -86,7 +87,7 @@ function App() {
 		});
 	}
 	function handleCardDelete(card) {
-		api.deleteCard(card._id).then(() => {
+		api.deleteCard(token, card._id).then(() => {
 			setCards(
 				cards.filter((item) => {
 					return item._id !== card._id;
@@ -96,14 +97,14 @@ function App() {
 	}
 
 	function handleUpdateUser(user) {
-		api.editProfileInfo(user.name, user.about).then((data) => {
+		api.editProfileInfo(token, user.name, user.about).then((data) => {
 			setCurrentUser(data);
 			closeAllPopups();
 		});
 	}
 
 	function handleUpdateAvatar(avatar) {
-		api.editProfileAvatar(avatar).then((data) => {
+		api.editProfileAvatar(token, avatar).then((data) => {
 			setCurrentUser(data);
 			closeAllPopups();
 		});

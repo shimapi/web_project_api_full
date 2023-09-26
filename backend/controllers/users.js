@@ -87,6 +87,16 @@ const createUser = async (req, res) => {
   }
 };
 
+const getUserbyId = async (req, res) => {
+  const { _id } = req.user;
+  try {
+    const user = await User.findById(_id);
+    return res.status(200).send(user);
+  } catch (error) {
+    return new Error('Ha ocurrido un error en el servidor al buscar el usuario');
+  }
+}
+
 const updateUserProfile = async (req, res) => {
   const { name, about } = req.body;
   try {
@@ -117,5 +127,5 @@ const updateUserAvatar = async (req, res) => {
 };
 
 module.exports = {
-  createUser, updateUserProfile, updateUserAvatar, login,
+  createUser, updateUserProfile, updateUserAvatar, login, getUserbyId,
 };

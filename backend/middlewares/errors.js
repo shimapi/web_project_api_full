@@ -7,9 +7,10 @@ const BadRequest = (message) => {
 const NotAuthorized = (message) => {
   const error = new Error(message);
   error.statusCode = 401;
-  return error;
+  // return res.status(401).send({ error });
 };
 
+// acceso restringido
 const Forbidden = (message) => {
   const error = new Error(message);
   error.statusCode = 403;

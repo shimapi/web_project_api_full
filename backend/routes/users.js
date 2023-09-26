@@ -5,19 +5,19 @@ const authorize = require('../middlewares/auth');
 
 const router = express.Router();
 
-router.get('/users', authorize, (req, res) => {
+router.get('/', authorize, (req, res) => {
   userController.getUsers(req, res);
 });
 
-router.get('/users/:userId', authorize, (req, res) => {
+router.get('/me', authorize, (req, res) => {
   userController.getUserbyId(req, res);
 });
 
-router.patch('/users/me', authorize, (req, res) => {
+router.patch('/me', authorize, (req, res) => {
   userController.updateUserProfile(req, res);
 });
 
-router.patch('/users/me/avatar', authorize, (req, res) => {
+router.patch('/me/avatar', authorize, (req, res) => {
   userController.updateUserAvatar(req, res);
 });
 

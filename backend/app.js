@@ -26,7 +26,7 @@ app.post('/signin', (req, res) => {
 });
 
 app.use('/users', users);
-app.use(cards);
+app.use('/cards', cards);
 
 app.get('/', (req, res) => {
   res.status(200).send('Hola, web funcionando');
@@ -41,7 +41,7 @@ app.use((error, req, res, next) => {
 });
 
 /* app.use((error, req, res) => { throw new NotFoundError('404: Recurso no encontrado'); });
-// res.status(404).send({ error: '404: Recurso no encontrado' });
+ res.status(404).send({ error: '404: Recurso no encontrado' });
 
 app.use((error, req, res) => { throw new ServerError('500: Error interno del servidor'); });
 // res.status(500).send({ error: '500: Error interno del servidor' }); */
