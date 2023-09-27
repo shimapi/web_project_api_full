@@ -71,8 +71,6 @@ export class Api {
 	}
 
 	async likeCard(token, cardId) {
-		console.log('token', token)
-		console.log('cardId', cardId)
 		const likesCard = await this._useFetch(
 			token,
 			`${this.originURL}/cards/likes/${cardId}`,

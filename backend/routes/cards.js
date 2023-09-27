@@ -20,4 +20,9 @@ router.put('/likes/:cardId', authorize, async (req, res) => {
 router.delete('/likes/:cardId', authorize, async (req, res) => {
   cardController.dislikeCard(req, res);
 });
+
+router.delete('/:cardId', authorize, async (req, res) => {
+  cardController.deleteCardById(req, res);
+});
+
 module.exports = router;
