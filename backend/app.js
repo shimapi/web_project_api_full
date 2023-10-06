@@ -1,12 +1,17 @@
 const mongoose = require('mongoose');
 const express = require('express');
+const { errors } = require('celebrate');
 const cors = require('cors');
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const userController = require('./controllers/users');
 
+const requestLogger = require('./middlewares/request.log');
+const errorLogger = require('./middlewares/error.log');
+
 const app = express();
 app.use(express.json());
+app.use(requestLogger);
 app.use(cors());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
@@ -28,6 +33,9 @@ app.use('/cards', cards);
 app.get('/', (req, res) => {
   res.status(200).send('Hola, web funcionando');
 });
+
+app.use(errorLogger);
+app.use(errors());// controlador de errores de celebrate// controlador de errores centralizados
 
 app.use((error, req, res, next) => res.status(400).send('404: Recurso no encontrado'));
 

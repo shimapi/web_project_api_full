@@ -12,6 +12,7 @@ exports.getAllCards = async (req, res) => {
 exports.createCard = async (req, res) => {
   const { name, link } = req.body;
   const { _id } = req.user;
+
   try {
     const newCard = await Card.create({ name, link, owner: _id });
     return res.status(201).json(newCard);

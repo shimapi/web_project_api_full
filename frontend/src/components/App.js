@@ -38,8 +38,8 @@ function App() {
 				const response = await api.checkUserToken(token);
 				const userData = await response.json();
 				if (userData.email) {
-					setLoggedIn(true);
 					setToken(token);
+					setLoggedIn(true);
 					setEmail(userData.email);
 					navigate("/");
 				}
@@ -53,7 +53,6 @@ function App() {
 			api
 				.getCards(token)
 				.then((res) => {
-					console.log(res);
 					setCards(res.cards);
 				});
 		}

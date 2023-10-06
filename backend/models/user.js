@@ -46,12 +46,10 @@ const userSchema = new mongoose.Schema({
 userSchema.statics.findUserByCredentials = async function (email, password) {
   const user = await this.findOne({ email }).select('+password');
   if (!user) {
-    console.log('user', user);
     return 'Usuario no encontrado';
   }
   const matched = await bcrypt.compare(password, user.password);
   if (!matched) {
-    console.log('matched', matched);
     return 'Contraseña incorrecta';
   }
 
