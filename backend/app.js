@@ -16,6 +16,8 @@ app.use(cors());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 
+const { PORT = 3005 } = process.env;
+
 mongoose.connect('mongodb://127.0.0.1:27017/aroundb')
   .then(() => console.log('Conexión a MongoDB exitosa'))
   .catch((error) => console.error('Error al conectar a MongoDB:', error));
@@ -49,6 +51,6 @@ module.exports.createCard = (req) => {
   console.log(req.user._id);
 };
 
-app.listen(3005, () => {
-  console.log('Server is running on port 3005');
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
 });
