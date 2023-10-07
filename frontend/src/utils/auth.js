@@ -13,7 +13,7 @@ export const registerUser = async (email, password) => {
 
 
 export const authorizeUser = async (email, password) => {
-	// fetch(localhost) mail pass POST header applcation JSON
+	// fetch(localhost) mail pass POST header application JSON
 	const res = await fetch('http://localhost:3005/signin', {
 		headers: {
 			"Content-Type": "application/json",

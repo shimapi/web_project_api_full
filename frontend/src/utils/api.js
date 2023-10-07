@@ -1,7 +1,10 @@
 export class Api {
+	
 	constructor() {
-		this.originURL = "http://localhost:3005";
+		this.originURL = "https://www.shirleymallea.com";
+		console.log(this.originURL);
 	}
+	
 
 	async _useFetch(token, url, method, body) {
 		const res = await fetch(url, {

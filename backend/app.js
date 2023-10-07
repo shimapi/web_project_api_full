@@ -2,9 +2,13 @@ const mongoose = require('mongoose');
 const express = require('express');
 const { errors } = require('celebrate');
 const cors = require('cors');
+require('dotenv').config();
+
 const users = require('./routes/users');
 const cards = require('./routes/cards');
 const userController = require('./controllers/users');
+
+console.log(process.env.NODE_ENV);
 
 const requestLogger = require('./middlewares/request.log');
 const errorLogger = require('./middlewares/error.log');
@@ -33,7 +37,7 @@ app.use('/users', users);
 app.use('/cards', cards);
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hola, web funcionando');
+  res.status(200).send('Hola, back funcionando');
 });
 
 app.use(errorLogger);
