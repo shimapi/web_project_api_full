@@ -6,7 +6,22 @@ Si un usuario no autorizado visita la aplicación, debería ser redirigido a la 
 import api from "./api";
 
 export const registerUser = async (email, password) => {
-	return await api.registerUser(email, password);
+	//return await api.registerUser(email, password);
+
+	// fetch(localhost) mail pass POST header application JSON
+	const res = await fetch('https://api.shirleymallea.com/signup', {
+		headers: {
+			"Content-Type": "application/json",
+		},
+		method: 'POST',
+		body: JSON.stringify({ email, password }),
+	});
+
+	if (res.ok) { // Replicar en register
+		return await res.json();
+	}
+	return Promise.reject(`Error: ${res.status}`);
+
 };
 
 
@@ -14,12 +29,12 @@ export const registerUser = async (email, password) => {
 
 export const authorizeUser = async (email, password) => {
 	// fetch(localhost) mail pass POST header application JSON
-	const res = await fetch('http://localhost:3005/signin', {
+	const res = await fetch('https://api.shirleymallea.com/signin', {
 		headers: {
 			"Content-Type": "application/json",
 		},
 		method: 'POST',
-		body: JSON.stringify({email, password}),
+		body: JSON.stringify({ email, password }),
 	});
 
 	if (res.ok) { // Replicar en register
@@ -30,7 +45,7 @@ export const authorizeUser = async (email, password) => {
 		}
 	}
 	return Promise.reject(`Error: ${res.status}`);
-	
+
 };
 
 export const authToken = async (token) => {

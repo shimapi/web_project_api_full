@@ -1,10 +1,10 @@
 export class Api {
-	
+
 	constructor() {
-		this.originURL = "https://www.shirleymallea.com";
+		this.originURL = "https://api.shirleymallea.com";
 		console.log(this.originURL);
 	}
-	
+
 
 	async _useFetch(token, url, method, body) {
 		const res = await fetch(url, {
@@ -32,7 +32,7 @@ export class Api {
 	}
 
 	async getCards(token) {
-		const cards = await this._useFetch(token,`${this.originURL}/cards`, "GET");
+		const cards = await this._useFetch(token, `${this.originURL}/cards`, "GET");
 		return cards;
 	}
 
@@ -57,7 +57,7 @@ export class Api {
 	}
 
 	async addNewCard(token, name, link) {
-		const newCard = await this._useFetch(token,`${this.originURL}/cards`, "POST", {
+		const newCard = await this._useFetch(token, `${this.originURL}/cards`, "POST", {
 			name,
 			link,
 		});
@@ -98,7 +98,7 @@ export class Api {
 		return changingLikeCardStatus;
 	}
 
-/* 	async registerUser(email, password) {
+	async registerUser(email, password) {
 		const newUser = await this._useFetch(
 			`${this.originURL}/signup`,
 			"POST",
@@ -109,7 +109,7 @@ export class Api {
 		);
 		return newUser;
 	}
- */
+
 
 
 	async checkUserToken(token) {
