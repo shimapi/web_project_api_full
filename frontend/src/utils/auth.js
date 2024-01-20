@@ -4,12 +4,12 @@
 Si un usuario no autorizado visita la aplicación, debería ser redirigido a la página de inicio de sesión, independientemente de la ruta desde la que accedió. */
 
 import api from "./api";
+import { MAIN_URL } from './variables.js';
 
 export const registerUser = async (email, password) => {
-	//return await api.registerUser(email, password);
 
 	// fetch(localhost) mail pass POST header application JSON
-	const res = await fetch('https://api.shirleymallea.com/signup', {
+	const res = await fetch(`${MAIN_URL}/signup`, {
 		headers: {
 			"Content-Type": "application/json",
 		},
@@ -21,15 +21,11 @@ export const registerUser = async (email, password) => {
 		return await res.json();
 	}
 	return Promise.reject(`Error: ${res.status}`);
-
 };
-
-
-
 
 export const authorizeUser = async (email, password) => {
 	// fetch(localhost) mail pass POST header application JSON
-	const res = await fetch('https://api.shirleymallea.com/signin', {
+	const res = await fetch(`${MAIN_URL}/signin`, {
 		headers: {
 			"Content-Type": "application/json",
 		},

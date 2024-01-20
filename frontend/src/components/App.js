@@ -14,8 +14,11 @@ import InfoTooltip from "./InfoTooltip.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { registerUser, authorizeUser } from "../utils/auth";
+//import 'dotenv/config'; //revisar después
 
 function App() {
+	//console.log({ env: process.env.REACT_APP_NODE_ENV })
+
 	const currentUserContext = useContext(CurrentUserContext);
 
 	const [currentUser, setCurrentUser] = useState({});
@@ -27,7 +30,7 @@ function App() {
 	const [selectedCard, setSelectedCard] = useState({});
 	const [cards, setCards] = useState([]);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [email, setEmail] = useState("");
+	const [email, setEmail] = useState('');
 	const [token, setToken] = useState('');
 	const navigate = useNavigate();
 
@@ -49,7 +52,7 @@ function App() {
 	}, [token]);
 
 	useEffect(() => {
-		if ( token ) {
+		if (token) {
 			api
 				.getCards(token)
 				.then((res) => {
@@ -59,7 +62,7 @@ function App() {
 	}, [token]);
 
 	useEffect(() => {
-		if ( token ) {
+		if (token) {
 			api
 				.getProfileInitialInfo(token)
 				.then((res) => {

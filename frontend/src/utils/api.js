@@ -1,10 +1,8 @@
+import { MAIN_URL } from './variables.js';
 export class Api {
-
 	constructor() {
-		this.originURL = "https://api.shirleymallea.com";
-		console.log(this.originURL);
+		this.originURL = MAIN_URL;
 	}
-
 
 	async _useFetch(token, url, method, body) {
 		const res = await fetch(url, {
@@ -99,6 +97,7 @@ export class Api {
 	}
 
 	async registerUser(email, password) {
+		console.log(MAIN_URL)
 		const newUser = await this._useFetch(
 			`${this.originURL}/signup`,
 			"POST",

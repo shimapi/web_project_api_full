@@ -8,8 +8,6 @@ const users = require('./routes/users');
 const cards = require('./routes/cards');
 const userController = require('./controllers/users');
 
-console.log(process.env.NODE_ENV);
-
 const requestLogger = require('./middlewares/request.log');
 const errorLogger = require('./middlewares/error.log');
 
@@ -20,9 +18,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 
-const { PORT = 3005 } = process.env;
-
-mongoose.connect('mongodb://127.0.0.1:27017/aroundb')
+mongoose.connect(process.env.DB_MONGO)
   .then(() => console.log('Conexión a MongoDB exitosa'))
   .catch((error) => console.error('Error al conectar a MongoDB:', error));
 
@@ -55,6 +51,6 @@ module.exports.createCard = (req) => {
   console.log(req.user._id);
 };
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running on port ${process.env.PORT}`);
 });
