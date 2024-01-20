@@ -1,7 +1,7 @@
 import React from "react";
 import PopupWithoutForm from "./PopupWithoutForm.js";
 
-export default function InfoTooltip({ openInfoTool, handleClose, error }) {
+export default function InfoTooltip({ openInfoTool, handleClose, error, errorMessage }) {
 	return (
 		<PopupWithoutForm
 			title="Acceder"
@@ -44,7 +44,11 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 							/>
 						</svg>
 						<h3 className="access__message">
-							Uy, algo salió mal. Por favor, inténtalo de nuevo.
+							Oh oh!
+							<br />
+							{errorMessage}
+							<br /><br />
+							Por favor, inténtalo de nuevo.
 						</h3>
 					</>
 				)}

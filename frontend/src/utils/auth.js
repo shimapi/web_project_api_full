@@ -18,7 +18,12 @@ export const registerUser = async (email, password) => {
 	});
 
 	if (res.ok) { // Replicar en register
-		return await res.json();
+		//return await res.json();
+		const response = await res.json();
+		if (response.token) {
+			localStorage.setItem("userToken", response.token);
+			return response.token;
+		}
 	}
 	return Promise.reject(`Error: ${res.status}`);
 };

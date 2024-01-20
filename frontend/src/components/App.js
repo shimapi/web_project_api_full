@@ -57,6 +57,9 @@ function App() {
 				.getCards(token)
 				.then((res) => {
 					setCards(res.cards);
+				})
+				.catch((error) => {
+					console.log(error);
 				});
 		}
 	}, [token]);
@@ -79,38 +82,66 @@ function App() {
 		const isLiked = card.likes.some((owner) => {
 			return owner === currentUser._id;
 		});
-		api.changeLikeCardStatus(token, card._id, isLiked).then((newCard) => {
-			setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
-		});
+		api.changeLikeCardStatus(token, card._id, isLiked)
+			.then((newCard) => {
+				setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 	function handleAddPlace(name, link) {
-		api.addNewCard(token, name, link).then((data) => {
-			setCards([data, ...cards]);
-			closeAllPopups();
-		});
+		//if (name && link) {
+		api.addNewCard(token, name, link).
+			then((data) => {
+				setCards([data, ...cards]);
+				closeAllPopups();
+			})
+			.catch((error) => {
+				if (error === 400) {
+					console.log(error + 40000000000) //arreglando
+					console.log(error);
+
+				}
+			});
+		/* 		} else {
+					console.log('Por favor completa ambos campos') //arreglando
+				} */
 	}
 	function handleCardDelete(card) {
-		api.deleteCard(token, card._id).then(() => {
-			setCards(
-				cards.filter((item) => {
-					return item._id !== card._id;
-				})
-			);
-		});
+		api.deleteCard(token, card._id)
+			.then(() => {
+				setCards(
+					cards.filter((item) => {
+						return item._id !== card._id;
+					})
+				);
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	function handleUpdateUser(user) {
-		api.editProfileInfo(token, user.name, user.about).then((data) => {
-			setCurrentUser(data);
-			closeAllPopups();
-		});
+		api.editProfileInfo(token, user.name, user.about)
+			.then((data) => {
+				setCurrentUser(data);
+				closeAllPopups();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 
 	function handleUpdateAvatar(avatar) {
-		api.editProfileAvatar(token, avatar).then((data) => {
-			setCurrentUser(data);
-			closeAllPopups();
-		});
+		api.editProfileAvatar(token, avatar)
+			.then((data) => {
+				setCurrentUser(data);
+				closeAllPopups();
+			})
+			.catch((error) => {
+				console.log(error);
+			});
 	}
 	function handleEditProfileClick() {
 		setIsEditProfilePopupOpen(true);

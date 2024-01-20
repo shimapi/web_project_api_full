@@ -1,30 +1,38 @@
 //Login — el componente para la autorización de usuarios con las variables de estado necesarias.
 
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
+import { errRegister } from '../utils/variables.js'
 
 export default function Register({ handleUserRegister }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [error, setError] = React.useState(false);
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
+	const [errorMessage, setErrorMessage] = React.useState('errorciiito')
+	const navigate = useNavigate();
+
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
+
 	}
 	function handleChangePassword(e) {
 		setPassword(e.target.value);
+
 	}
 	async function handleSubmit(e) {
+		e.preventDefault();
 		try {
-			e.preventDefault();
 			await handleUserRegister(email, password);
 			setOpenInfoTool(true);
-		} catch (err) {
+			navigate("/");
+		} catch (error) {
+			console.log(error);
+			setErrorMessage(errRegister)
 			setError(true);
 			setOpenInfoTool(true);
-			console.log(err);
 		}
 	}
 	function handleClose() {
@@ -72,6 +80,7 @@ export default function Register({ handleUserRegister }) {
 				error={error}
 				openInfoTool={openInfoTool}
 				handleClose={handleClose}
+				errorMessage={errorMessage}
 			/>
 		</section>
 	);
