@@ -99,7 +99,7 @@ function App() {
 			})
 			.catch((error) => {
 				if (error === 400) {
-					console.log(error + 40000000000) //arreglando
+					console.log(error + '40000000000'); //arreglando
 					console.log(error);
 
 				}
