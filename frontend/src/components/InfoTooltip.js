@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PopupWithoutForm from "./PopupWithoutForm.js";
 
 export default function InfoTooltip({ openInfoTool, handleClose, error, errorMessage }) {
+
+	useEffect(() => {
+		console.log('errorMessage', errorMessage);
+		console.log('error error', error);
+	}, [errorMessage])
+
 	return (
 		<PopupWithoutForm
 			title="Acceder"
