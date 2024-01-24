@@ -9,7 +9,12 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 	const [placeLink, setPlaceLink] = useState("");
 	const [error, setError] = React.useState(false);
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('errorciiito')
+	const [errorMessage, setErrorMessage] = React.useState('errorciiito');
+
+	const methods = {
+		setPlaceName,
+		setPlaceLink,
+	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -23,13 +28,20 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 		}
 	}
 
-	function onNameChange(e) {
-		setPlaceName(e.target.value);
+	function onInputChange(e) {
+		const dataMethod = e.target.dataset.method;
+		const value = e.target.value;
+
+		//asigno el valor al input correspondiente
+		methods[dataMethod](value); //setPlaceName(e.target.value);
+
+		if (!e.target.validity.valid) {
+			setOpenInfoTool(true)
+			return setError(true)
+		}
+		setError(false)
 	}
 
-	function onLinkChange(e) {
-		setPlaceLink(e.target.value);
-	}
 	function handleClose() {
 		setError(false);
 		setOpenInfoTool(false);
@@ -48,22 +60,24 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 					type="text"
 					id="add-place__name"
 					name="addPlaceName"
+					data-method='setPlaceName'
 					className="form__input modal__input add-place__name"
 					placeholder="Título de la imagen"
 					minLength="2"
 					maxLength="30"
 					required
-					onChange={onNameChange}
+					onChange={onInputChange}
 				/>
 				<span className="add-place__name-error form__input-error"></span>
 				<input
 					type="URL"
 					id="add-place__link"
 					name="addPlaceLink"
+					data-method='setPlaceLink'
 					className="form__input modal__input add-place__link"
 					placeholder="URL de la imagen"
 					required
-					onChange={onLinkChange}
+					onChange={onInputChange}
 				/>
 				<span className="add-place__link-error form__input-error"></span>
 			</PopupWithForm>
