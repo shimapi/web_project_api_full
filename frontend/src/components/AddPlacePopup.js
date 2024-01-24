@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import InfoTooltip from "./InfoTooltip.js";
-import { errLogin } from "../utils/variables.js";
+import { errAddPlaceName, errAddPlaceLink } from "../utils/variables.js";
 
 
 export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
@@ -9,26 +9,32 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 	const [placeLink, setPlaceLink] = useState("");
 	const [error, setError] = React.useState(false);
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('errorciiito');
+	const [errorMessage, setErrorMessage] = React.useState('');
 
 	const methods = {
 		setPlaceName,
 		setPlaceLink,
 	}
+	const errorMessages = {
+		addPlaceName: errAddPlaceName,
+		addPlaceLink: errAddPlaceLink,
+	}
 
 	function handleSubmit(e) {
 		e.preventDefault();
 		try {
+			//aqui añadir validacion
 			onAddPlace(placeName, placeLink);
 		} catch (error) {
-			console.log("Error en inicio de sesión", error);
-			setErrorMessage(errLogin)
+			setErrorMessage(error)
 			setError(true);
 			setOpenInfoTool(true);
 		}
 	}
 
+
 	function onInputChange(e) {
+		const fieldName = e.target.name;
 		const dataMethod = e.target.dataset.method;
 		const value = e.target.value;
 
@@ -37,9 +43,11 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 
 		if (!e.target.validity.valid) {
 			setOpenInfoTool(true)
+			setErrorMessage(errorMessages[fieldName] || 'Error');
 			return setError(true)
 		}
-		setError(false)
+		setError(false);
+		setErrorMessage('');;
 	}
 
 	function handleClose() {

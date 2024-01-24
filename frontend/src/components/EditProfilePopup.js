@@ -10,7 +10,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 	const [description, setDescription] = useState("");
 	const [error, setError] = React.useState(false);
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('errorciiito');
+	const [errorMessage, setErrorMessage] = React.useState('');
 
 	const methods = {
 		setName,
@@ -37,12 +37,13 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 
 		if (!e.target.validity.valid) {
 			setOpenInfoTool(true)
-			setErrorMessage(errorMessages[fieldName] || 'Error genérico');
+			setErrorMessage(errorMessages[fieldName] || 'Error');
 			return setError(true)
 		}
 		setError(false);
 		setErrorMessage('');;
 	}
+
 	function handleSubmit(e) {
 		e.preventDefault();
 		try {
@@ -51,7 +52,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 				about: description,
 			});
 		} catch (error) {
-			console.log("Error editando la información", error);
 			setErrorMessage(error)
 			setError(true);
 			setOpenInfoTool(true);
@@ -61,13 +61,6 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 		setError(false);
 		setOpenInfoTool(false);
 	}
-
-	/* 	const handleChangeUsername = (e) => {
-			setName(e.target.value);
-		};
-		const handleChangeDescription = (e) => {
-			setDescription(e.target.value);
-		}; */
 
 	return (
 		<>
