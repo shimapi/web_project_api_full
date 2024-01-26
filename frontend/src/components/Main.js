@@ -4,8 +4,7 @@ import ImagePopup from "./ImagePopup.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 
 const Main = (props) => {
-	const currentUser = useContext(CurrentUserContext);
-
+	const { currentUser } = useContext(CurrentUserContext);
 	return (
 		<>
 			<section className="owner">

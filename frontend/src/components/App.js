@@ -19,9 +19,7 @@ import { registerUser, authorizeUser } from "../utils/auth";
 function App() {
 	//console.log({ env: process.env.REACT_APP_NODE_ENV })
 
-	const currentUserContext = useContext(CurrentUserContext);
-
-	const [currentUser, setCurrentUser] = useState({});
+	const [currentUser, setCurrentUser] = useState({}); //revisar
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -70,7 +68,7 @@ function App() {
 				.getProfileInitialInfo(token)
 				.then((res) => {
 					setCurrentUser({ ...res, email });
-					currentUserContext.setCurrentUser({ ...res, email });
+					//currentUserContext.setCurrentUser({ ...res, email });
 				})
 				.catch((error) => {
 					console.log(error);
@@ -169,15 +167,16 @@ function App() {
 		await registerUser(email, password);
 	}
 	async function handleUserLogin(email, password) {
-		await authorizeUser(email, password);
+		const awaitToken = await authorizeUser(email, password);
 		localStorage.setItem("userEmail", email);
+		setToken(awaitToken);
 	}
 	function handleChangeLoginState() {
 		setLoggedIn(true);
 	}
 	return (
 		<div className="App container">
-			<CurrentUserContext.Provider value={currentUser}>
+			<CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>
 				<Header />
 				<Routes>
 					<Route

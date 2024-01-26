@@ -1,24 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from "../images/logo.svg";
+import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Header = () => {
 	const [userEmail, setUserEmail] = useState("");
 	const navigate = useNavigate();
 	const location = useLocation();
+	const { setCurrentUser } = useContext(CurrentUserContext);
+
 
 	useEffect(() => {
 		const storedUserEmail = localStorage.getItem("userEmail");
 		if (storedUserEmail) {
 			setUserEmail(storedUserEmail);
 		}
-	});
+	}, [setCurrentUser]);
 
 	function closeSession() {
 		localStorage.removeItem("userToken");
 		localStorage.removeItem("userEmail");
 		setUserEmail("");
 		navigate("/");
+		setCurrentUser({});
 	}
 	return (
 		<header className="header">
