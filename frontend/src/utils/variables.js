@@ -8,4 +8,6 @@ export const errAddPlaceName = 'Hay un problema con el *nombre* del lugar';
 export const errAddPlaceLink = 'Hay un problema en el *link* de la foto';
 export const errEditName = 'Hay un problema en el nombre';
 export const errEditOcupation = 'Hay un problema en la ocupación';
-export const errEditAvatar = 'Hay un problema en el *link* de tu avatar';
+export const errEditAvatar = 'Por favor, revisa tu URL.';
+export const errURL = 'Por favor, introduce una URL válida.';
+export const okURL = 'tu URL es válida :)';
