@@ -12,13 +12,9 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 		e.preventDefault();
 		onUpdateAvatar(avatar.current);
 	}
-	//por qué se renderea tantas veces??
-	console.log(currentUser)
-	console.log(currentUser.avatar)
 
 	function isValidURL(value) {
 		const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-		//console.log(urlRegex.test(value));
 		return urlRegex.test(value);
 	}
 
