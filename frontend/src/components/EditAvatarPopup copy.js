@@ -1,4 +1,4 @@
-import React, { useRef, useContext, useState } from "react";
+import React, { useRef, useContext } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
 import { errURL, okURL } from '../utils/variables.js'
@@ -6,9 +6,7 @@ import { errURL, okURL } from '../utils/variables.js'
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 	const { currentUser } = useContext(CurrentUserContext);
 	const avatar = useRef(currentUser.avatar);
-
-	const [inputError, setInputError] = useState('');
-	const [classSuccess, setClassSuccess] = useState('');
+	const errorAvatarEmptyInput = document.querySelector('.edit-avatar__link-error');
 
 	function handleSubmit(e) {
 		e.preventDefault();
@@ -22,13 +20,14 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 
 	function handleURL(e) {
 		avatar.current = e.target.value;
+		errorAvatarEmptyInput.classList.add("form__input-error_active");
+		errorAvatarEmptyInput.classList.remove("form__input-success");
 
 		if ((e.target.value.trim() === '') || (!isValidURL(e.target.value))) {
-			setInputError(errURL);
-			setClassSuccess('')
+			errorAvatarEmptyInput.textContent = errURL;
 		} else {
-			setInputError(okURL);
-			setClassSuccess('form__input-success')
+			errorAvatarEmptyInput.classList.add("form__input-success");
+			errorAvatarEmptyInput.textContent = okURL;
 		}
 	}
 	return (
@@ -48,9 +47,9 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 				required
 				onChange={handleURL}
 			/>
-			<span className={`edit-avatar__link-error form__input-error ${classSuccess}`}>
-				{inputError}
+			<span className="edit-avatar__link-error form__input-error">
+
 			</span>
-		</PopupWithForm >
+		</PopupWithForm>
 	);
 }

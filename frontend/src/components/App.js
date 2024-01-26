@@ -1,5 +1,5 @@
 import "../index.css";
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import Header from "./Header.js";
 import Main from "./Main.js";
@@ -68,7 +68,6 @@ function App() {
 				.getProfileInitialInfo(token)
 				.then((res) => {
 					setCurrentUser({ ...res, email });
-					//currentUserContext.setCurrentUser({ ...res, email });
 				})
 				.catch((error) => {
 					console.log(error);
@@ -90,8 +89,8 @@ function App() {
 	}
 	function handleAddPlace(name, link) {
 		//if (name && link) {
-		api.addNewCard(token, name, link).
-			then((data) => {
+		api.addNewCard(token, name, link)
+			.then((data) => {
 				setCards([data, ...cards]);
 				closeAllPopups();
 			})
