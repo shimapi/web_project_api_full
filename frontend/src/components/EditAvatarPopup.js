@@ -12,13 +12,13 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 		e.preventDefault();
 		onUpdateAvatar(avatar.current);
 	}
-	/* //por qué se renderea tantas veces??
+	//por qué se renderea tantas veces??
 	console.log(currentUser)
 	console.log(currentUser.avatar)
- */
+
 	function isValidURL(value) {
 		const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-		console.log(urlRegex.test(value));
+		//console.log(urlRegex.test(value));
 		return urlRegex.test(value);
 	}
 
@@ -51,7 +51,9 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 				required
 				onChange={handleURL}
 			/>
-			<span className="edit-avatar__link-error form__input-error"></span>
+			<span className="edit-avatar__link-error form__input-error">
+
+			</span>
 		</PopupWithForm>
 	);
 }
