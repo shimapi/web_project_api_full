@@ -4,10 +4,10 @@ import logo from "../images/logo.svg";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 
 const Header = () => {
+	const { setCurrentUser } = useContext(CurrentUserContext);
 	const [userEmail, setUserEmail] = useState("");
 	const navigate = useNavigate();
 	const location = useLocation();
-	const { setCurrentUser } = useContext(CurrentUserContext);
 
 
 	useEffect(() => {
@@ -15,13 +15,13 @@ const Header = () => {
 		if (storedUserEmail) {
 			setUserEmail(storedUserEmail);
 		}
-	}, [setCurrentUser]);
+	});
 
-	function closeSession() {
+	function logout() {
 		localStorage.removeItem("userToken");
 		localStorage.removeItem("userEmail");
 		setUserEmail("");
-		navigate("/");
+		navigate("/signin");
 		setCurrentUser({});
 	}
 	return (
@@ -41,7 +41,7 @@ const Header = () => {
 				) : (
 					<>
 						{userEmail} &nbsp;/&nbsp;
-						<Link to="/signin" onClick={closeSession}>
+						<Link to="/signin" onClick={logout}>
 							Cerrar sesión
 						</Link>
 					</>
