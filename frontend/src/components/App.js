@@ -164,6 +164,7 @@ function App() {
 	}
 	async function handleUserRegister(email, password) {
 		await registerUser(email, password);
+		navigate('/signin');
 	}
 	async function handleUserLogin(email, password) {
 		const awaitToken = await authorizeUser(email, password);

@@ -1,12 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 import PopupWithoutForm from "./PopupWithoutForm.js";
 
-export default function InfoTooltip({ openInfoTool, handleClose, error, errorMessage }) {
+export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 
-	/* 	useEffect(() => {
-			console.log('errorMessage', errorMessage);
-			console.log('error error', error);
-		}, [errorMessage]) */
 
 	return (
 		<PopupWithoutForm
@@ -15,7 +12,7 @@ export default function InfoTooltip({ openInfoTool, handleClose, error, errorMes
 			onClose={handleClose}
 		>
 			<div className="access">
-				{!error ? (
+				{(error === 'Error: 201') ? (
 					<>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -31,17 +28,13 @@ export default function InfoTooltip({ openInfoTool, handleClose, error, errorMes
 								fill="#4BB543"
 							/>
 						</svg>
-						<h3 className="access__message">¡Correcto! Ya estás registrado.</h3>
+						<h3 className="access__message">
+							¡Correcto! Ya estás registrado, ahora
+							<Link to="/signin">Inicia sesión aquí</Link>
+						</h3>
 					</>
 				) : (
 					<>
-						<h3 className="access__message">
-							Oh oh!
-							<br />
-							{errorMessage}
-							<br /><br />
-							Por favor, inténtalo de nuevo.
-						</h3>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
 							width="120"
@@ -56,6 +49,10 @@ export default function InfoTooltip({ openInfoTool, handleClose, error, errorMes
 								fill="#FD0707"
 							/>
 						</svg>
+						<h3 className="access__message">
+							Oh oh!
+							Por favor, inténtalo de nuevo.
+						</h3>
 					</>
 				)}
 			</div>

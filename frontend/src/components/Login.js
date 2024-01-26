@@ -2,15 +2,10 @@
 
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
-import InfoTooltip from "./InfoTooltip";
-import { errLogin } from "../utils/variables.js";
 
 export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
-	const [error, setError] = React.useState(false);
-	const [openInfoTool, setOpenInfoTool] = React.useState(false);
-	const [errorMessage, setErrorMessage] = React.useState('errorciiito')
 	const navigate = useNavigate();
 
 	function handleChangeEmail(e) {
@@ -27,15 +22,9 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 			navigate("/");
 		} catch (error) {
 			console.log("Error en inicio de sesión", error);
-			setErrorMessage(errLogin)
-			setError(true);
-			setOpenInfoTool(true);
 		}
 	}
-	function handleClose() {
-		setError(false);
-		setOpenInfoTool(false);
-	}
+
 	return (
 		<section className="access">
 			<form
@@ -73,12 +62,6 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 					¿Aún no eres miembro? <Link to="/signup">Regístrate aquí</Link>
 				</p>
 			</form>
-			<InfoTooltip
-				error={error}
-				openInfoTool={openInfoTool}
-				handleClose={handleClose}
-				errorMessage={errorMessage}
-			/>
 		</section>
 	);
 }
