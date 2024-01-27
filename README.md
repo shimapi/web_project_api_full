@@ -1,7 +1,3 @@
-# Proyecto de Autorización de Usuarios
-
-Este proyecto se centra en la autorización de usuarios, proporcionando una interfaz para que los usuarios inicien sesión y se registren. El front-end está construido con React, mientras que el back-end utiliza tecnologías como Node.js y Express para manejar la lógica de autorización.
-
 ## Puntos Importantes del Proyecto
 
 - **Front-end**: El front-end está construido con React y utiliza React Router para la navegación entre las páginas de inicio de sesión y registro.

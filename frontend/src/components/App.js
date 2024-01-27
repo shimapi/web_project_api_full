@@ -19,7 +19,7 @@ import { registerUser, authorizeUser } from "../utils/auth";
 function App() {
 	//console.log({ env: process.env.REACT_APP_NODE_ENV })
 
-	const [currentUser, setCurrentUser] = useState({}); //revisar
+	const [currentUser, setCurrentUser] = useState({});
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
@@ -88,22 +88,14 @@ function App() {
 			});
 	}
 	function handleAddPlace(name, link) {
-		//if (name && link) {
 		api.addNewCard(token, name, link)
 			.then((data) => {
 				setCards([data, ...cards]);
 				closeAllPopups();
 			})
 			.catch((error) => {
-				if (error === 400) {
-					console.log(error + '40000000000'); //arreglando
-					console.log(error);
-
-				}
+				console.log(error);
 			});
-		/* 		} else {
-					console.log('Por favor completa ambos campos') //arreglando
-				} */
 	}
 	function handleCardDelete(card) {
 		api.deleteCard(token, card._id)
