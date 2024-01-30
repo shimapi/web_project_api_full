@@ -7,7 +7,7 @@ const generateToken = (data) => {
     { _id: data._id },
     'developer',
     { expiresIn: '7d' },
-    NODE_ENV === 'production' ? JWT_SECRET : 'secret-keyyy',
+    NODE_ENV === 'production' ? JWT_SECRET : 'secretisimo',
   );
 
   return token;

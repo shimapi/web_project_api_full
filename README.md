@@ -1,3 +1,17 @@
+# Project Name: Around the World
+
+## Description
+
+Around the World is a web application that allows users to share and view photos from different locations around the world. Users can register, log in, edit their profiles, add new cards with images and links, like and delete cards, and more.
+
+## Technologies and Techniques Used
+
+- Frontend: React, React Router, Context API, CSS Modules
+- Backend: Node.js, Express, MongoDB, Mongoose, bcrypt, celebrate, cors, dotenv, winston
+- Other: Validator, JWT, ESLint
+
+## App URL
+
 ## Puntos Importantes del Proyecto
 
 - **Front-end**: El front-end está construido con React y utiliza React Router para la navegación entre las páginas de inicio de sesión y registro.
