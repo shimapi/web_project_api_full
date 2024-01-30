@@ -22,6 +22,11 @@ mongoose.connect(process.env.DB_MONGO)
   .then(() => console.log('Conexión a MongoDB exitosa'))
   .catch((error) => console.error('Error al conectar a MongoDB:', error));
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('El servidor va a caer');
+  }, 0);
+});
 app.post('/signup', (req, res) => {
   userController.createUser(req, res);
 });
@@ -37,7 +42,7 @@ app.get('/', (req, res) => {
 });
 
 app.use(errorLogger);
-app.use(errors());// controlador de errores de celebrate// controlador de errores centralizados
+app.use(errors());// controlador de errores de celebrate centralizados
 
 app.use((error, req, res, next) => res.status(400).send('404: Recurso no encontrado'));
 
