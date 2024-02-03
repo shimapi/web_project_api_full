@@ -20,7 +20,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "scp -r -i ~/.ssh/id_ed25519 ./build/* shirley.mallea2@shirley.lat:/home/shirley.mallea2/web_project_api_full/frontend"
   },
   "eslintConfig": {
     "extends": [

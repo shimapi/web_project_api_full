@@ -1,6 +1,4 @@
-//const MAIN_URL= "https://api.shirleymallea.com";
-
-export const MAIN_URL = "http://localhost:3005";
+export const MAIN_URL = "https://api.shirley.lat"; // localhost:3005
 
 export const errRegister = 'Hay un problema en tu registro';
 export const errLogin = 'Hay un error en inicio de sesión';
