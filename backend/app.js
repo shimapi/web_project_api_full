@@ -27,7 +27,7 @@ app.get('/crash-test', () => {
     throw new Error('El servidor va a caer');
   }, 0);
 });
-app.post('/signup', (req, res) => {
+app.post('/signup', (req, res) => { // aqui poner middleware
   userController.createUser(req, res);
 });
 app.post('/signin', (req, res) => {

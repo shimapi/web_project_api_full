@@ -4,7 +4,7 @@ const authorize = async (req, res, next) => {
   const headerAuth = req.header('Authorization');
 
   if (!headerAuth) {
-    return res.status(403).send('Acceso no autorizado');
+    return res.status(403).send('Se requiere autorización para ingresar');
   }
   const token = headerAuth.replace('Bearer ', '');
 
