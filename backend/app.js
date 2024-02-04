@@ -19,7 +19,7 @@ app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 
 mongoose.connect(process.env.DB_MONGO)
-  .then(() => console.log('Conexión a MongoDB exitosa'))
+  .then(() => console.log('Conexión a MongoDB exitosa!'))
   .catch((error) => console.error('Error al conectar a MongoDB:', error));
 
 app.get('/crash-test', () => {
@@ -27,7 +27,7 @@ app.get('/crash-test', () => {
     throw new Error('El servidor va a caer');
   }, 0);
 });
-app.post('/signup', (req, res) => { // aqui poner middleware
+app.post('/signup', (req, res) => {
   userController.createUser(req, res);
 });
 app.post('/signin', (req, res) => {
@@ -57,5 +57,5 @@ module.exports.createCard = (req) => {
 };
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on Port ${process.env.PORT}`);
+  console.log(`Server running on PORT ${process.env.PORT}`);
 });
