@@ -38,7 +38,7 @@ app.use('/users', users);
 app.use('/cards', cards);
 
 app.get('/', (req, res) => {
-  res.status(200).send('Hola, back funcionando');
+  res.status(200).send('Hola, back funcionando :)');
 });
 
 app.use(errorLogger);
@@ -57,5 +57,5 @@ module.exports.createCard = (req) => {
 };
 
 app.listen(process.env.PORT, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+  console.log(`Server running on Port ${process.env.PORT}`);
 });
