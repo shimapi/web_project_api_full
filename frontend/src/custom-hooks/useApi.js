@@ -1,12 +1,6 @@
 import { useState, useEffect } from "react";
 
-//const authorization = "e693c678-e26f-42f9-a95c-4c1ab4d74246";
-//export const originURL = "https://around.nomoreparties.co/v1/web_es_cohort_03";
-
-// custom hook es funcion js
 export const useApi = (url, method, body = null) => {
-	// data, error, loading
-
 	const [data, setData] = useState(null);
 	const [error, setError] = useState(null);
 	const [loading, setLoading] = useState(null);
@@ -18,7 +12,6 @@ export const useApi = (url, method, body = null) => {
 			try {
 				const res = await fetch(url, {
 					headers: {
-						//authorization,
 						"Content-Type": "application/json",
 					},
 					method,

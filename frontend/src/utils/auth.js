@@ -8,7 +8,6 @@ import { MAIN_URL } from './variables.js';
 
 export const registerUser = async (email, password) => {
 
-	// fetch(localhost) mail pass POST header application JSON
 	const res = await fetch(`${MAIN_URL}/signup`, {
 		headers: {
 			"Content-Type": "application/json",
@@ -17,8 +16,7 @@ export const registerUser = async (email, password) => {
 		body: JSON.stringify({ email, password }),
 	});
 
-	if (res.ok) { // Replicar en register
-		//return await res.json();
+	if (res.ok) {
 		const response = await res.json();
 		if (response.token) {
 			localStorage.setItem("userToken", response.token);
@@ -29,7 +27,6 @@ export const registerUser = async (email, password) => {
 };
 
 export const authorizeUser = async (email, password) => {
-	// fetch(localhost) mail pass POST header application JSON
 	const res = await fetch(`${MAIN_URL}/signin`, {
 		headers: {
 			"Content-Type": "application/json",
@@ -38,7 +35,7 @@ export const authorizeUser = async (email, password) => {
 		body: JSON.stringify({ email, password }),
 	});
 
-	if (res.ok) { // Replicar en register
+	if (res.ok) {
 		const response = await res.json();
 		if (response.token) {
 			localStorage.setItem("userToken", response.token);

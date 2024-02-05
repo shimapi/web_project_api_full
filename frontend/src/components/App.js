@@ -14,10 +14,8 @@ import InfoTooltip from "./InfoTooltip.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { registerUser, authorizeUser } from "../utils/auth";
-//import 'dotenv/config'; //revisar después
 
 function App() {
-	//console.log({ env: process.env.REACT_APP_NODE_ENV })
 
 	const [currentUser, setCurrentUser] = useState({});
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);

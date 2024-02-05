@@ -97,7 +97,6 @@ export class Api {
 	}
 
 	async registerUser(email, password) {
-		console.log(MAIN_URL)
 		const newUser = await this._useFetch(
 			`${this.originURL}/signup`,
 			"POST",

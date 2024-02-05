@@ -4,9 +4,6 @@
 	opacity: 1;
 	transition: 0.3s;
 }
-/* .form__input-error_active {
-	opacity: 1;
-} */
 .form__input-success {
 	color: green;
 }
