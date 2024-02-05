@@ -73,6 +73,20 @@ function App() {
 		}
 	}, [token]);
 
+	useEffect(() => {
+		function handleEscKey(event) {
+			if (event.key === 'Escape') {
+				closeAllPopups();
+			}
+		}
+
+		document.addEventListener('keydown', handleEscKey);
+
+		return () => {
+			document.removeEventListener('keydown', handleEscKey);
+		};
+	}, []);
+
 	function handleCardLike(card) {
 		const isLiked = card.likes.some((owner) => {
 			return owner === currentUser._id;
