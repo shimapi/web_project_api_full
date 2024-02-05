@@ -1,15 +1,5 @@
 # Project Name: Around the World
 
-## Description
-
-Around the World is a web application that allows users to share and view photos from different locations around the world. Users can register, log in, edit their profiles, add new cards with images and links, like and delete cards, and more.
-
-## Technologies and Techniques Used
-
-- Frontend: React, React Router, Context API, CSS Modules
-- Backend: Node.js, Express, MongoDB, Mongoose, bcrypt, celebrate, cors, dotenv, winston
-- Other: Validator, JWT, ESLint
-
 ## App URL
 
 The application is hosted at [https://shirley.lat](https://shirley.lat).
@@ -20,6 +10,16 @@ To test the app use this credentials:
 
 mail: **test@shirley.lat**  
 pass: **test123**
+
+## Description
+
+Around the World is a web application that allows users to share and view photos from different locations around the world. Users can register, log in, edit their profiles, add new cards with images and links, like and delete cards, and more.
+
+## Technologies and Techniques Used
+
+- Frontend: React, React Router, Context API, CSS Modules
+- Backend: Node.js, Express, MongoDB, Mongoose, bcrypt, celebrate, cors, dotenv, winston
+- Other: Validator, JWT, ESLint
 
 ## Key Points of the Project
 
