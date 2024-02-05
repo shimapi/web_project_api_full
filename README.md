@@ -17,7 +17,8 @@ The application is hosted at [https://shirley.lat](https://shirley.lat).
 ## Test App
 
 To test the app use this credentials:
-mail: **test@shirley.lat**
+
+mail: **test@shirley.lat**  
 pass: **test123**
 
 ## Key Points of the Project
@@ -25,4 +26,4 @@ pass: **test123**
 - **Front-end**: The front-end is built with React and uses React Router for navigation between the login and registration pages.
 - **Back-end**: The back-end uses Node.js and Express to handle authorization logic, including user credential validation and session management.
 
-Enjoy!
+Enjoy! :)
