@@ -26,7 +26,7 @@ function App() {
 	const [selectedCard, setSelectedCard] = useState({});
 	const [cards, setCards] = useState([]);
 	const [loggedIn, setLoggedIn] = useState(false);
-	const [email, setEmail] = useState('');
+	//const [email, setEmail] = useState('');
 	const [token, setToken] = useState('');
 	const navigate = useNavigate();
 
@@ -34,18 +34,20 @@ function App() {
 		async function handleToken() {
 			if (localStorage.getItem("userToken")) {
 				const token = localStorage.getItem("userToken");
-				const response = await api.checkUserToken(token);
-				const userData = await response.json();
-				if (userData.email) {
-					setToken(token);
-					setLoggedIn(true);
-					setEmail(userData.email);
-					navigate("/");
-				}
+				console.log(token, 'token')
+				//const response = await api.checkUserToken(token);
+				//const userData = await response.json();
+				//console.log(userData.email, 'userData.email)')
+				//if (userData.email) {
+				setToken(token);
+				setLoggedIn(true);
+				//setEmail(userData.email);
+				navigate("/");
+				//}
 			}
 		}
 		handleToken();
-	}, [token]);
+	}, [navigate, token]);
 
 	useEffect(() => {
 		if (token) {
@@ -65,7 +67,7 @@ function App() {
 			api
 				.getProfileInitialInfo(token)
 				.then((res) => {
-					setCurrentUser({ ...res, email });
+					setCurrentUser({ ...res });
 				})
 				.catch((error) => {
 					console.log(error);
@@ -75,13 +77,11 @@ function App() {
 
 	useEffect(() => {
 		function handleEscKey(event) {
-			if (event.key === 'Escape') {
+			if (event.key === 'Escape' || event.key === 'Esc') {
 				closeAllPopups();
 			}
 		}
-
 		document.addEventListener('keydown', handleEscKey);
-
 		return () => {
 			document.removeEventListener('keydown', handleEscKey);
 		};
@@ -174,10 +174,14 @@ function App() {
 		const awaitToken = await authorizeUser(email, password);
 		localStorage.setItem("userEmail", email);
 		setToken(awaitToken);
+		console.log("handleUserLogin-app email password", email, password)
+		console.log("handleUserLogin-app awaitToken", awaitToken)
+		return { email, password }
 	}
 	function handleChangeLoginState() {
 		setLoggedIn(true);
 	}
+
 	return (
 		<div className="App container">
 			<CurrentUserContext.Provider value={{ currentUser, setCurrentUser }}>

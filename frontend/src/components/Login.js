@@ -16,10 +16,14 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	}
 	async function handleLogin(e) {
 		e.preventDefault();
+		console.log('handleLogin e', e)
 		if (email && password) {
 			try {
 				await handleUserLogin(email, password);
+				console.log('handleUserLogin(email, password)', handleUserLogin(email, password))
 				await handleChangeLoginState();
+				console.log('handleChangeLoginState()', handleChangeLoginState())
+
 				navigate("/");
 			} catch (error) {
 				console.log("Error en inicio de sesión", error);

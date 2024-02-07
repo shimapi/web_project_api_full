@@ -34,9 +34,12 @@ export const authorizeUser = async (email, password) => {
 		method: 'POST',
 		body: JSON.stringify({ email, password }),
 	});
-
+	// 🟣🟣🟣🟣🟣 aquí se está generando el token sin siquiera validar al usuario
+	console.log('res', res)
 	if (res.ok) {
+		console.log('👀 JSON.stringify({ email, password}', JSON.stringify({ email, password }))
 		const response = await res.json();
+		console.log("response", response)
 		if (response.token) {
 			localStorage.setItem("userToken", response.token);
 			return response.token;

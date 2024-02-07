@@ -1,11 +1,15 @@
-.main-text__about{
-  font-size: 14px;
-  font-weight: 400;
-  margin: 10px 0;
+.main-text__about {
+	font-size: 14px;
+	font-weight: 400;
+	margin: 10px 0;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+	overflow: hidden;
+	max-width: 500px;
 }
 
 @media only screen and (min-width: 881px) {
-  .main-text__about{
-    font-size: 18px;
-  }
+	.main-text__about {
+		font-size: 18px;
+	}
 }

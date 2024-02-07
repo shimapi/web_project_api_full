@@ -17,8 +17,11 @@ const hashPassword = async (password) => bcrypt.hash(password, 10);
 
 const login = async (req, res) => {
   const { email, password } = req.body;
+  // console.log('req', req);
+  console.log('req.body', req.body); // me lista mail y pass aunq no esté en la BD
   try {
     const user = await User.findUserByCredentials(email, password);
+    console.log('user', user); // usuario no encontrado
 
     if (user && user instanceof Error) {
       return res.status(403).send(user.message);

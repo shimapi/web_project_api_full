@@ -30,6 +30,7 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 						</svg>
 						<h3 className="access__message">
 							¡Correcto! Ya estás registrado, ahora
+							<br />
 							<Link to="/signin">Inicia sesión aquí</Link>
 						</h3>
 					</>
