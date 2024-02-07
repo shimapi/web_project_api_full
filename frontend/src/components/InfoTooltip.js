@@ -4,7 +4,7 @@ import PopupWithoutForm from "./PopupWithoutForm.js";
 
 export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 
-
+	console.log(openInfoTool, handleClose, error)
 	return (
 		<PopupWithoutForm
 			title="Acceder"
@@ -53,6 +53,7 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 						<h3 className="access__message">
 							Oh oh!
 							Por favor, inténtalo de nuevo.
+							{error}
 						</h3>
 					</>
 				)}

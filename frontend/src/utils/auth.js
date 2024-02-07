@@ -27,25 +27,33 @@ export const registerUser = async (email, password) => {
 };
 
 export const authorizeUser = async (email, password) => {
-	const res = await fetch(`${MAIN_URL}/signin`, {
-		headers: {
-			"Content-Type": "application/json",
-		},
-		method: 'POST',
-		body: JSON.stringify({ email, password }),
-	});
-	// 🟣🟣🟣🟣🟣 aquí se está generando el token sin siquiera validar al usuario
-	console.log('res', res)
-	if (res.ok) {
+	try {
+		const res = await fetch(`${MAIN_URL}/signin`, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'POST',
+			body: JSON.stringify({ email, password }),
+		});
+		// 🟣🟣🟣🟣🟣 aquí se está generando el token sin siquiera validar al usuario
+		console.log('res', res)
+		if (!res.ok) {
+			throw new Error(`Error: ${res.status}`)
+		}
 		console.log('👀 JSON.stringify({ email, password}', JSON.stringify({ email, password }))
+		console.log('test 1')
 		const response = await res.json();
 		console.log("response", response)
-		if (response.token) {
-			localStorage.setItem("userToken", response.token);
-			return response.token;
-		}
+		//if (response.token) {
+		console.log('test 2')
+		localStorage.setItem("userToken", response.token);
+		return response.token;
+		//}
 	}
-	return Promise.reject(`Error: ${res.status}`);
+	catch (error) {
+		console.log('test3 error en front auth', error.message)
+		return Promise.reject(`Error: ${error.message}`);
+	}
 
 };
 

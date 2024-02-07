@@ -1,11 +1,12 @@
-//Login — el componente para la autorización de usuarios con las variables de estado necesarias.
-
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
+import InfoTooltip from "./InfoTooltip";
 
 export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
+	const [error, setError] = React.useState('');
+	const [openInfoTool, setOpenInfoTool] = React.useState(false);
 	const navigate = useNavigate();
 
 	function handleChangeEmail(e) {
@@ -16,19 +17,27 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	}
 	async function handleLogin(e) {
 		e.preventDefault();
-		console.log('handleLogin e', e)
+		// console.log('handleLogin e', e)
 		if (email && password) {
 			try {
 				await handleUserLogin(email, password);
 				console.log('handleUserLogin(email, password)', handleUserLogin(email, password))
 				await handleChangeLoginState();
 				console.log('handleChangeLoginState()', handleChangeLoginState())
-
+				setOpenInfoTool(true);
 				navigate("/");
 			} catch (error) {
 				console.log("Error en inicio de sesión", error);
+				setOpenInfoTool(true);
+				setError(error);
+				console.log('setError', setError)
+				console.log('error', error)
 			}
 		}
+	}
+	function handleClose() {
+		setError('');
+		setOpenInfoTool(false);
 	}
 
 	return (
@@ -68,6 +77,11 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 					¿Aún no eres miembro? <Link to="/signup">Regístrate aquí</Link>
 				</p>
 			</form>
+			<InfoTooltip
+				error={error}
+				openInfoTool={openInfoTool}
+				handleClose={handleClose}
+			/>
 		</section>
 	);
 }

@@ -171,12 +171,18 @@ function App() {
 		navigate('/signin');
 	}
 	async function handleUserLogin(email, password) {
-		const awaitToken = await authorizeUser(email, password);
-		localStorage.setItem("userEmail", email);
-		setToken(awaitToken);
-		console.log("handleUserLogin-app email password", email, password)
-		console.log("handleUserLogin-app awaitToken", awaitToken)
-		return { email, password }
+		try {
+			const awaitToken = await authorizeUser(email, password);
+			localStorage.setItem("userEmail", email);
+			setToken(awaitToken);
+			console.log("handleUserLogin-app email password", email, password)
+			console.log("handleUserLogin-app awaitToken", awaitToken)
+			return { email, password }
+		}
+		catch (error) {
+			console.log('error.message App.js front', error);
+			return Promise.reject(`Error: ${error}`);
+		}
 	}
 	function handleChangeLoginState() {
 		setLoggedIn(true);
@@ -198,7 +204,10 @@ function App() {
 					/>
 					<Route
 						path="/signup"
-						element={<Register handleUserRegister={handleUserRegister} />}
+						element={
+							<Register
+								handleUserRegister={handleUserRegister}
+							/>}
 					/>
 					<Route path="/" element={<ProtectedRoute loggedIn={loggedIn} />}>
 						<Route
@@ -243,9 +252,10 @@ function App() {
 				/>
 
 				<InfoTooltip
-					isOpen={isInfoTooltipPopupOpen}
-					onClose={closeAllPopups}
+					openInfoTool={isInfoTooltipPopupOpen}
+					handleClose={closeAllPopups}
 					onAddPlace={handleAddPlace}
+
 				/>
 			</CurrentUserContext.Provider>
 		</div>

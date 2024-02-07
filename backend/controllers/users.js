@@ -18,18 +18,19 @@ const hashPassword = async (password) => bcrypt.hash(password, 10);
 const login = async (req, res) => {
   const { email, password } = req.body;
   // console.log('req', req);
-  console.log('req.body', req.body); // me lista mail y pass aunq no esté en la BD
+  // console.log('req.body', req.body); // me lista mail y pass aunq no esté en la BD
   try {
     const user = await User.findUserByCredentials(email, password);
-    console.log('user', user); // usuario no encontrado
+    // console.log('user', user); // usuario no encontrado
 
-    if (user && user instanceof Error) {
+    if (user && (user instanceof Error || user === 'Usuario no encontrado')) { // esto siempre es true, porque el de arriba es un error,
       return res.status(403).send(user.message);
     }
     const token = await generateToken(user);
     return res.status(200).send({ token });
   } catch (error) {
-    return res.status(401).send({ message: 'Email o contraseña incorrectos', details: error });
+    // console.log('login - error; ', error.message);
+    return res.status(401).send({ message: error.message, details: error });
   }
 };
 
