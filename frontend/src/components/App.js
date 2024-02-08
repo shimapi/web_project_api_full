@@ -71,6 +71,7 @@ function App() {
 		function handleEscKey(event) {
 			if (event.key === 'Escape' || event.key === 'Esc') {
 				closeAllPopups();
+				setIsInfoTooltipPopupOpen(false);
 			}
 		}
 		document.addEventListener('keydown', handleEscKey);
@@ -159,21 +160,24 @@ function App() {
 		setIsImageOpen(false);
 	}
 	async function handleUserRegister(email, password) {
-		await registerUser(email, password);
-		navigate('/signin');
+		try {
+			await registerUser(email, password);
+			navigate('/signin');
+		}
+		catch (error) {
+			return Promise.reject(error);
+
+		}
 	}
 	async function handleUserLogin(email, password) {
-		console.log("handleUserLogin-app email password", email, password)
 		try {
 			const awaitToken = await authorizeUser(email, password);
 			localStorage.setItem("userEmail", email);
 			setToken(awaitToken);
-			console.log("handleUserLogin-app awaitToken", awaitToken)
 			return { email, password }
 		}
 		catch (error) {
-			console.log('error.message App.js front', error);
-			return Promise.reject(`Error: ${error}`);
+			return Promise.reject(error);
 		}
 	}
 	function handleChangeLoginState() {
@@ -243,12 +247,11 @@ function App() {
 					onAddPlace={handleAddPlace}
 				/>
 
-				<InfoTooltip
+				{/* 				<InfoTooltip
 					openInfoTool={isInfoTooltipPopupOpen}
 					handleClose={closeAllPopups}
 					onAddPlace={handleAddPlace}
-
-				/>
+				/> */}
 			</CurrentUserContext.Provider>
 		</div>
 	);

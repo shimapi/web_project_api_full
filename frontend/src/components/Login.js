@@ -1,6 +1,7 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
+import useEscapeKey from "../custom-hooks/useEscKey";
 
 export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	const [email, setEmail] = React.useState("");
@@ -17,23 +18,15 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	}
 	async function handleLogin(e) {
 		e.preventDefault();
-		// console.log('handleLogin e', e)
-		console.log('handleUserLogin(email, password)', email, password)
 		if (email && password) {
 			try {
 				await handleUserLogin(email, password);
 				await handleChangeLoginState();
-				console.log('handleChangeLoginState()', handleChangeLoginState())
 				setOpenInfoTool(true);
 				navigate("/");
 			} catch (error) {
-				console.log("Error en inicio de sesión", error);
 				setOpenInfoTool(true);
 				setError(error);
-				console.log('setError(error)', setError(error)) // cómo funciona setError?
-				console.log('setError()', setError()) // cómo funciona setError?
-				console.log('setError', setError) // cómo funciona setError?
-				console.log('error', error)
 			}
 		}
 	}
@@ -41,6 +34,7 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 		setError('');
 		setOpenInfoTool(false);
 	}
+	useEscapeKey(handleClose);
 
 	return (
 		<section className="access">

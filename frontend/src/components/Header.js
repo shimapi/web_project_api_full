@@ -15,7 +15,7 @@ const Header = () => {
 		if (storedUserEmail) {
 			setUserEmail(storedUserEmail);
 		}
-	});
+	}, []);
 
 	function logout() {
 		localStorage.removeItem("userToken");

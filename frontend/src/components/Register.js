@@ -1,12 +1,14 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import InfoTooltip from "./InfoTooltip";
+import useEscKey from "../custom-hooks/useEscKey";
 
 export default function Register({ handleUserRegister }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
 	const [error, setError] = React.useState('');
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
+	useEscKey(handleClose);
 
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
@@ -22,13 +24,13 @@ export default function Register({ handleUserRegister }) {
 		} catch (err) {
 			setError(err);
 			setOpenInfoTool(true);
-			console.log(err);
 		}
 	}
 	function handleClose() {
 		setError('');
 		setOpenInfoTool(false);
 	}
+
 	return (
 		<section className="access">
 			<form

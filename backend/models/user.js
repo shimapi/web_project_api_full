@@ -43,20 +43,19 @@ const userSchema = new mongoose.Schema({
   },
 });
 
-userSchema.statics.findUserByCredentials = async function (email, password) {
+userSchema.statics.findUserByCredentials = async function findUserByCredentials(email, password) {
   try {
     const user = await this.findOne({ email }).select('+password');
     if (!user) {
-      throw new Error('Usuario no encontrado');
+      throw new Error('e-mail o contraseña incorrectas');
     }
     const matched = await bcrypt.compare(password, user.password);
     if (!matched) {
-      throw new Error('Contraseña incorrecta');
+      throw new Error('e-mail o contraseña incorrectas');
     }
 
     return user;
   } catch (error) {
-    // console.log('Usuario no encontrado,', error.message);
     throw new Error(error.message);
   }
 };
