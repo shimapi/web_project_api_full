@@ -26,8 +26,8 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 			setOpenInfoTool(true);
 			navigate("/");
 		} catch (error) {
+			setError(error.message);
 			setOpenInfoTool(true);
-			setError(error);
 		}
 	}
 	function handleClose() {

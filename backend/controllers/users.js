@@ -8,7 +8,7 @@ const doesUserExist = async (email) => {
   try {
     user = await User.findOne({ email });
   } catch (error) {
-    return new Error('Ha ocurrido un error en el servidor al buscar el usuario');
+    throw new Error('Ha ocurrido un error en el servidor al buscar el usuario');
   }
   return !!user;
 };
@@ -21,7 +21,7 @@ const login = async (req, res) => {
   try {
     const user = await User.findUserByCredentials(email, password);
 
-    if (user && (user instanceof Error || user === 'Usuario no encontrado')) {
+    if (user && (user instanceof Error || user === 'e-mail o contraseña incorrectas')) {
       return res.status(403).send(user.message);
     }
     const token = await generateToken(user);
@@ -38,7 +38,7 @@ const createUser = async (req, res) => {
     } = req.body;
     const userExists = await doesUserExist(email);
     if (userExists) {
-      return res.status(409).send('Mail ya registrado anteriormente');
+      return res.status(409).send({ message: 'Mail ya registrado anteriormente' });
     }
     const hashedPassword = await hashPassword(password);
     const newUser = await User.create({
@@ -48,12 +48,13 @@ const createUser = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    return res.status(201).send({ data: newUser });
+    return res.status(201).send({ data: newUser, message: 'Usuario creado exitosamente' });
   } catch (error) {
     if (error.name === 'ValidationError') {
-      return res.status(400).send('Error en la validacion de los datos');
+      return res.status(400).send({ message: 'Error en la validación de los datos' });
     }
-    return res.status(500).send('Error al crear el usuario en el servidor');
+    return res.status(500).send({ message: 'Error al crear el usuario en el servidor' });
+    // aqui le agregué message
   }
 };
 
@@ -63,7 +64,7 @@ const getUserbyId = async (req, res) => {
     const user = await User.findById(_id);
     return res.status(200).send(user);
   } catch (error) {
-    return res.status(500).send('Ha ocurrido un error en el servidor al buscar el usuario');
+    return res.status(500).send({ message: 'Ha ocurrido un error en el servidor al buscar el usuario' });
   }
 };
 
@@ -77,7 +78,7 @@ const updateUserProfile = async (req, res) => {
     );
     return res.status(200).send(updatedUser);
   } catch (error) {
-    return res.status(400).send('Error al actualizar el perfil del usuario');
+    return res.status(400).send({ message: 'Error al actualizar el perfil del usuario' });
   }
 };
 
@@ -91,7 +92,7 @@ const updateUserAvatar = async (req, res) => {
     );
     return res.status(200).send(updatedUser);
   } catch (error) {
-    return res.status(400).send({ error: 'Error al actualizar el avatar del usuario' });
+    return res.status(400).send({ message: 'Error al actualizar el avatar del usuario' });
   }
 };
 

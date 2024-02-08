@@ -78,7 +78,6 @@ function App() {
 		setOpenInfoTool(false);
 	}
 
-
 	useEscKey(closeAllPopups);
 
 	function handleCardLike(card) {
@@ -158,10 +157,12 @@ function App() {
 	async function handleUserRegister(email, password) {
 		try {
 			await registerUser(email, password);
+			setOpenInfoTool(true);
+			setError('Usuario creado exitosamente');
 			navigate('/signin');
-		}
-		catch (error) {
-			return Promise.reject(error);
+		} catch (error) {
+			setError(error.message);
+			setOpenInfoTool(true);
 		}
 	}
 	async function handleUserLogin(email, password) {
@@ -172,7 +173,7 @@ function App() {
 			return { email, password }
 		}
 		catch (error) {
-			return Promise.reject(error);
+			throw new Error(error);
 		}
 	}
 	function handleChangeLoginState() {

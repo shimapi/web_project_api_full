@@ -18,12 +18,12 @@ export default function Register({ handleUserRegister }) {
 		setPassword(e.target.value);
 	}
 	async function handleSubmit(e) {
+		e.preventDefault();
 		try {
-			e.preventDefault();
 			await handleUserRegister(email, password);
 			setOpenInfoTool(true);
-		} catch (err) {
-			setError(err);
+		} catch (error) {
+			setError(error.message);
 			setOpenInfoTool(true);
 		}
 	}

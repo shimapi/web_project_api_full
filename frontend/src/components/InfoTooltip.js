@@ -10,7 +10,7 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 			onClose={handleClose}
 		>
 			<div className="access">
-				{(error === 'Error: 201') ? (
+				{(error === 'Usuario creado exitosamente') ? (
 					<>
 						<svg
 							xmlns="http://www.w3.org/2000/svg"
@@ -27,9 +27,8 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 							/>
 						</svg>
 						<h3 className="access__message">
-							¡Correcto! Ya estás registrado, ahora
-							<br />
-							<Link to="/signin">Inicia sesión aquí</Link>
+							¡Registro exitoso, ahora ya puedes&nbsp;
+							<Link to="/signin">iniciar sesión haciendo click aquí!</Link>
 						</h3>
 					</>
 				) : (

@@ -2,25 +2,29 @@ import api from "./api";
 import { MAIN_URL } from './variables.js';
 
 export const registerUser = async (email, password) => {
+	try {
+		const res = await fetch(`${MAIN_URL}/signup`, {
+			headers: {
+				"Content-Type": "application/json",
+			},
+			method: 'POST',
+			body: JSON.stringify({ email, password }),
+		});
 
-	const res = await fetch(`${MAIN_URL}/signup`, {
-		headers: {
-			"Content-Type": "application/json",
-		},
-		method: 'POST',
-		body: JSON.stringify({ email, password }),
-	});
-
-	if (res.ok) {
 		const response = await res.json();
-		if (response.token) {
-			localStorage.setItem("userToken", response.token);
-			return response.token;
+		console.log('response', response)
+		console.log('response.message', response.message)
+		console.log('res', res)
+		if (!res.ok) {
+			throw new Error(response.message);
 		}
-	}
-	return Promise.reject(`Error: ${res.status}`);
-
-};
+		return response;
+	} catch (error) {
+		console.log('error message', error.message)
+		console.log('error', error)
+		throw new Error(error.message);
+	};
+}
 
 export const authorizeUser = async (email, password) => {
 	try {
@@ -32,6 +36,7 @@ export const authorizeUser = async (email, password) => {
 			body: JSON.stringify({ email, password }),
 		});
 		const response = await res.json();
+
 		if (!res.ok) {
 			throw new Error(`Error: ${response.message}`)
 		}

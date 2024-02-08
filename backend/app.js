@@ -44,9 +44,9 @@ app.get('/', (req, res) => {
 app.use(errorLogger);
 app.use(errors());// controlador de errores de celebrate centralizados
 
-app.use((error, req, res, next) => res.status(400).send('404: Recurso no encontrado'));
+app.use((error, req, res, next) => res.status(400).send({ message: '404: Recurso no encontrado' }));
 
-app.use((error, req, res, next) => res.status(500).send('500: Error interno del servidor'));
+app.use((error, req, res, next) => res.status(500).send({ message: '500: Error interno del servidor' }));
 
 app.use((error, req, res, next) => {
   res.send({ message: error.message });
