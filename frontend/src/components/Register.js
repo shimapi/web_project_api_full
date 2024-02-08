@@ -55,8 +55,8 @@ export default function Register({ handleUserRegister }) {
 					name="registerPassword"
 					className="access__input form__input"
 					placeholder="Contraseña"
-					required
 					onChange={handleChangePassword}
+					required
 				/>
 				<span className="add-place__link-error form__input-error"></span>
 				<button type="submit" className="button button-access">

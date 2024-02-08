@@ -18,10 +18,10 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	async function handleLogin(e) {
 		e.preventDefault();
 		// console.log('handleLogin e', e)
+		console.log('handleUserLogin(email, password)', email, password)
 		if (email && password) {
 			try {
 				await handleUserLogin(email, password);
-				console.log('handleUserLogin(email, password)', handleUserLogin(email, password))
 				await handleChangeLoginState();
 				console.log('handleChangeLoginState()', handleChangeLoginState())
 				setOpenInfoTool(true);
@@ -30,7 +30,9 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 				console.log("Error en inicio de sesión", error);
 				setOpenInfoTool(true);
 				setError(error);
-				console.log('setError', setError)
+				console.log('setError(error)', setError(error)) // cómo funciona setError?
+				console.log('setError()', setError()) // cómo funciona setError?
+				console.log('setError', setError) // cómo funciona setError?
 				console.log('error', error)
 			}
 		}

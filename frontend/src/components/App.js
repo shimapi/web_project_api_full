@@ -26,7 +26,6 @@ function App() {
 	const [selectedCard, setSelectedCard] = useState({});
 	const [cards, setCards] = useState([]);
 	const [loggedIn, setLoggedIn] = useState(false);
-	//const [email, setEmail] = useState('');
 	const [token, setToken] = useState('');
 	const navigate = useNavigate();
 
@@ -34,16 +33,9 @@ function App() {
 		async function handleToken() {
 			if (localStorage.getItem("userToken")) {
 				const token = localStorage.getItem("userToken");
-				console.log(token, 'token')
-				//const response = await api.checkUserToken(token);
-				//const userData = await response.json();
-				//console.log(userData.email, 'userData.email)')
-				//if (userData.email) {
 				setToken(token);
 				setLoggedIn(true);
-				//setEmail(userData.email);
 				navigate("/");
-				//}
 			}
 		}
 		handleToken();
@@ -171,11 +163,11 @@ function App() {
 		navigate('/signin');
 	}
 	async function handleUserLogin(email, password) {
+		console.log("handleUserLogin-app email password", email, password)
 		try {
 			const awaitToken = await authorizeUser(email, password);
 			localStorage.setItem("userEmail", email);
 			setToken(awaitToken);
-			console.log("handleUserLogin-app email password", email, password)
 			console.log("handleUserLogin-app awaitToken", awaitToken)
 			return { email, password }
 		}

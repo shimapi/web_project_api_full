@@ -3,8 +3,7 @@ import { Link } from "react-router-dom";
 import PopupWithoutForm from "./PopupWithoutForm.js";
 
 export default function InfoTooltip({ openInfoTool, handleClose, error }) {
-
-	console.log(openInfoTool, handleClose, error)
+	console.log('error desde infotooltip', error)
 	return (
 		<PopupWithoutForm
 			title="Acceder"
