@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 
 const useEscKey = (handleClose) => {
+
+
   useEffect(() => {
     function handleEscKey(event) {
       if (event.key === 'Escape' || event.key === 'Esc') {
         handleClose();
-        // closeAllPopups();
-        // setIsInfoTooltipPopupOpen(false);
       }
     }
 

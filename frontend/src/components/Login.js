@@ -10,6 +10,8 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
 	const navigate = useNavigate();
 
+	useEscapeKey(handleClose);
+
 	function handleChangeEmail(e) {
 		setEmail(e.target.value);
 	}
@@ -18,23 +20,20 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	}
 	async function handleLogin(e) {
 		e.preventDefault();
-		if (email && password) {
-			try {
-				await handleUserLogin(email, password);
-				await handleChangeLoginState();
-				setOpenInfoTool(true);
-				navigate("/");
-			} catch (error) {
-				setOpenInfoTool(true);
-				setError(error);
-			}
+		try {
+			await handleUserLogin(email, password);
+			await handleChangeLoginState();
+			setOpenInfoTool(true);
+			navigate("/");
+		} catch (error) {
+			setOpenInfoTool(true);
+			setError(error);
 		}
 	}
 	function handleClose() {
 		setError('');
 		setOpenInfoTool(false);
 	}
-	useEscapeKey(handleClose);
 
 	return (
 		<section className="access">

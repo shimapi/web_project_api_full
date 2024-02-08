@@ -5,19 +5,25 @@ export class Api {
 	}
 
 	async _useFetch(token, url, method, body) {
-		const res = await fetch(url, {
-			headers: {
-				authorization: `Bearer ${token}`,
-				"Content-Type": "application/json",
-			},
-			method,
-			body: JSON.stringify(body),
-		});
+		try {
+			const res = await fetch(url, {
+				headers: {
+					authorization: `Bearer ${token}`,
+					"Content-Type": "application/json",
+				},
+				method,
+				body: JSON.stringify(body),
+			});
 
-		if (res.ok) {
-			return res.json();
+			if (res.ok) {
+				return res.json();
+			}
+
 		}
-		return Promise.reject(`Error: ${res.status}`);
+		catch (error) {
+
+			return Promise.reject(`Error: ${error.status}`);
+		}
 	}
 
 	async getProfileInitialInfo(token) {

@@ -8,6 +8,7 @@ export default function Register({ handleUserRegister }) {
 	const [password, setPassword] = React.useState("");
 	const [error, setError] = React.useState('');
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
+
 	useEscKey(handleClose);
 
 	function handleChangeEmail(e) {

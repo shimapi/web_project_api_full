@@ -14,6 +14,7 @@ import InfoTooltip from "./InfoTooltip.js";
 import { Route, Routes, useNavigate } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute";
 import { registerUser, authorizeUser } from "../utils/auth";
+import useEscKey from "../custom-hooks/useEscKey.js";
 
 function App() {
 
@@ -21,12 +22,13 @@ function App() {
 	const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
 	const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
 	const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
-	const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
 	const [isImageOpen, setIsImageOpen] = useState(false);
 	const [selectedCard, setSelectedCard] = useState({});
 	const [cards, setCards] = useState([]);
 	const [loggedIn, setLoggedIn] = useState(false);
 	const [token, setToken] = useState('');
+	const [error, setError] = React.useState('');
+	const [openInfoTool, setOpenInfoTool] = React.useState(false);
 	const navigate = useNavigate();
 
 	useEffect(() => {
@@ -67,18 +69,17 @@ function App() {
 		}
 	}, [token]);
 
-	useEffect(() => {
-		function handleEscKey(event) {
-			if (event.key === 'Escape' || event.key === 'Esc') {
-				closeAllPopups();
-				setIsInfoTooltipPopupOpen(false);
-			}
-		}
-		document.addEventListener('keydown', handleEscKey);
-		return () => {
-			document.removeEventListener('keydown', handleEscKey);
-		};
-	}, []);
+	function closeAllPopups() {
+		setIsEditProfilePopupOpen(false);
+		setIsAddPlacePopupOpen(false);
+		setIsEditAvatarPopupOpen(false);
+		setIsImageOpen(false);
+		setError('');
+		setOpenInfoTool(false);
+	}
+
+
+	useEscKey(closeAllPopups);
 
 	function handleCardLike(card) {
 		const isLiked = card.likes.some((owner) => {
@@ -144,7 +145,7 @@ function App() {
 		setIsAddPlacePopupOpen(true);
 	}
 	function handleInfoTooltipClick() {
-		setIsInfoTooltipPopupOpen(true);
+		setOpenInfoTool(true);
 	}
 	function handleEditAvatarClick() {
 		setIsEditAvatarPopupOpen(true);
@@ -153,12 +154,7 @@ function App() {
 		setSelectedCard(card);
 		setIsImageOpen(true);
 	}
-	function closeAllPopups() {
-		setIsEditProfilePopupOpen(false);
-		setIsAddPlacePopupOpen(false);
-		setIsEditAvatarPopupOpen(false);
-		setIsImageOpen(false);
-	}
+
 	async function handleUserRegister(email, password) {
 		try {
 			await registerUser(email, password);
@@ -247,11 +243,11 @@ function App() {
 					onAddPlace={handleAddPlace}
 				/>
 
-				{/* 				<InfoTooltip
-					openInfoTool={isInfoTooltipPopupOpen}
+				<InfoTooltip
+					openInfoTool={openInfoTool}
 					handleClose={closeAllPopups}
-					onAddPlace={handleAddPlace}
-				/> */}
+					error={error}
+				/>
 			</CurrentUserContext.Provider>
 		</div>
 	);
