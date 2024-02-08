@@ -162,7 +162,6 @@ function App() {
 		}
 		catch (error) {
 			return Promise.reject(error);
-
 		}
 	}
 	async function handleUserLogin(email, password) {
