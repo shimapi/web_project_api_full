@@ -9,13 +9,12 @@ const Header = () => {
 	const navigate = useNavigate();
 	const location = useLocation();
 
-
 	useEffect(() => {
 		const storedUserEmail = localStorage.getItem("userEmail");
 		if (storedUserEmail) {
 			setUserEmail(storedUserEmail);
 		}
-	}, []);
+	});
 
 	function logout() {
 		localStorage.removeItem("userToken");

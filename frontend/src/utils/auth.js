@@ -12,16 +12,11 @@ export const registerUser = async (email, password) => {
 		});
 
 		const response = await res.json();
-		console.log('response', response)
-		console.log('response.message', response.message)
-		console.log('res', res)
 		if (!res.ok) {
 			throw new Error(response.message);
 		}
 		return response;
 	} catch (error) {
-		console.log('error message', error.message)
-		console.log('error', error)
 		throw new Error(error.message);
 	};
 }

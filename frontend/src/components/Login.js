@@ -6,7 +6,7 @@ import useEscapeKey from "../custom-hooks/useEscKey";
 export default function Login({ handleUserLogin, handleChangeLoginState }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
-	const [error, setError] = React.useState('');
+	const [error, setError] = React.useState("");
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
 	const navigate = useNavigate();
 
@@ -31,7 +31,7 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 		}
 	}
 	function handleClose() {
-		setError('');
+		setError("");
 		setOpenInfoTool(false);
 	}
 

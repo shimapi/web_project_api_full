@@ -6,7 +6,7 @@ import useEscKey from "../custom-hooks/useEscKey";
 export default function Register({ handleUserRegister }) {
 	const [email, setEmail] = React.useState("");
 	const [password, setPassword] = React.useState("");
-	const [error, setError] = React.useState('');
+	const [error, setError] = React.useState("");
 	const [openInfoTool, setOpenInfoTool] = React.useState(false);
 
 	useEscKey(handleClose);
@@ -21,10 +21,8 @@ export default function Register({ handleUserRegister }) {
 		e.preventDefault();
 		try {
 			await handleUserRegister(email, password);
-			//setOpenInfoTool(true);
 		} catch (error) {
 			setError(error.message);
-			//setOpenInfoTool(true);
 		}
 	}
 	function handleClose() {

@@ -28,7 +28,7 @@ export default function InfoTooltip({ openInfoTool, handleClose, error }) {
 						</svg>
 						<h3 className="access__message">
 							¡Registro exitoso, ahora ya puedes&nbsp;
-							<Link to="/signin">iniciar sesión haciendo click aquí!</Link>
+							<Link to="/signin" onClick={handleClose}>iniciar sesión haciendo click aquí!</Link>
 						</h3>
 					</>
 				) : (
