@@ -21,10 +21,10 @@ export default function Register({ handleUserRegister }) {
 		e.preventDefault();
 		try {
 			await handleUserRegister(email, password);
-			setOpenInfoTool(true);
+			//setOpenInfoTool(true);
 		} catch (error) {
 			setError(error.message);
-			setOpenInfoTool(true);
+			//setOpenInfoTool(true);
 		}
 	}
 	function handleClose() {
