@@ -2,7 +2,7 @@ const Card = require('../models/card');
 
 exports.getAllCards = async (req, res) => {
   try {
-    const cards = await Card.find();
+    const cards = await Card.find({}, null, { sort: { createdAt: -1 } });
     return res.status(200).json({ cards });
   } catch (error) {
     return res.status(500).send('Error al obtener las cards', error);
