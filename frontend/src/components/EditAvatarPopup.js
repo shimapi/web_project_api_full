@@ -1,7 +1,8 @@
 import React, { useRef, useContext, useState } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { CurrentUserContext } from "../contexts/CurrentUserContext.js";
-import { errURL, okURL } from '../utils/variables.js'
+import { errURL, inputOK, classSuccessStyle } from '../utils/variables.js'
+import { isValidImageURL } from '../utils/helpers.js'
 
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 	const { currentUser } = useContext(CurrentUserContext);
@@ -15,11 +16,6 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 		onUpdateAvatar(avatar.current);
 	}
 
-	function isValidImageURL(value) {
-		const imageRegex = /\.(jpeg|jpg|gif|png|svg)(\?.*)?$/i;
-		return imageRegex.test(value);
-	}
-
 	function handleImageURL(e) {
 		avatar.current = e.target.value.trim();
 
@@ -27,8 +23,8 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 			setInputError(errURL);
 			setClassSuccess('')
 		} else {
-			setInputError(okURL);
-			setClassSuccess('form__input-success');
+			setInputError(inputOK);
+			setClassSuccess(classSuccessStyle);
 		}
 	}
 

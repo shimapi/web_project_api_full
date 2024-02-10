@@ -3,12 +3,10 @@ import PopupWithForm from "./PopupWithForm";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import { errEditName, errEditOcupation, inputOK, classSuccessStyle } from '../utils/variables.js'
 
-
 export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 	const { currentUser } = useContext(CurrentUserContext);
 	const [name, setName] = useState("");
 	const [description, setDescription] = useState("");
-
 	const [inputErrorUsername, setInputErrorUsername] = useState('');
 	const [inputErrorDescription, setInputErrorDescription] = useState('');
 	const [classSuccessUsername, setClassSuccessUsername] = useState('');
