@@ -1,5 +1,8 @@
 # Project Name: Around the World
 
+
+https://github.com/shimapi/web_project_api_full/assets/85321043/1ae07c85-a536-40c3-bfd0-a1d82fd54413
+
 ## App URL
 
 The application is hosted at [https://shirley.lat](https://shirley.lat).
@@ -27,3 +30,4 @@ Around the World is a web application that allows users to share and view photos
 - **Back-end**: The back-end uses Node.js and Express to handle authorization logic, including user credential validation and session management.
 
 Enjoy! :)
+
