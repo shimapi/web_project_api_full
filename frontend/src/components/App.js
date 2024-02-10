@@ -51,7 +51,7 @@ function App() {
 					setCards(res.cards);
 				})
 				.catch((error) => {
-					console.log(error);
+					return error;
 				});
 		}
 	}, [token]);
@@ -64,7 +64,7 @@ function App() {
 					setCurrentUser({ ...res });
 				})
 				.catch((error) => {
-					console.log(error);
+					return error;
 				});
 		}
 	}, [token]);
@@ -89,7 +89,7 @@ function App() {
 				setCards((state) => state.map((c) => (c._id === card._id ? newCard : c)));
 			})
 			.catch((error) => {
-				console.log(error);
+				return error;
 			});
 	}
 	function handleAddPlace(name, link) {
@@ -99,7 +99,7 @@ function App() {
 				closeAllPopups();
 			})
 			.catch((error) => {
-				console.log(error);
+				return error;
 			});
 	}
 	function handleCardDelete(card) {
@@ -112,7 +112,7 @@ function App() {
 				);
 			})
 			.catch((error) => {
-				console.log(error);
+				return error;
 			});
 	}
 
@@ -123,7 +123,7 @@ function App() {
 				closeAllPopups();
 			})
 			.catch((error) => {
-				console.log(error);
+				return error;
 			});
 	}
 
@@ -134,7 +134,7 @@ function App() {
 				closeAllPopups();
 			})
 			.catch((error) => {
-				console.log(error);
+				return error;
 			});
 	}
 	function handleEditProfileClick() {

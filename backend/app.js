@@ -18,9 +18,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_MONGO)
-  .then(() => console.log('Conexión a MongoDB exitosa!'))
-  .catch((error) => console.error('Error al conectar a MongoDB:', error));
+mongoose.connect(process.env.DB_MONGO);
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -52,10 +50,4 @@ app.use((error, req, res, next) => {
   res.send({ message: error.message });
 });
 
-module.exports.createCard = (req) => {
-  console.log(req.user._id);
-};
-
-app.listen(process.env.PORT, () => {
-  console.log(`Server running on PORT ${process.env.PORT}`);
-});
+app.listen(process.env.PORT);

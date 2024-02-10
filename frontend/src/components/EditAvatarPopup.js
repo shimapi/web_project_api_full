@@ -15,22 +15,23 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 		onUpdateAvatar(avatar.current);
 	}
 
-	function isValidURL(value) {
-		const urlRegex = /^(ftp|http|https):\/\/[^ "]+$/;
-		return urlRegex.test(value);
+	function isValidImageURL(value) {
+		const imageRegex = /\.(jpeg|jpg|gif|png|svg)(\?.*)?$/i;
+		return imageRegex.test(value);
 	}
 
-	function handleURL(e) {
-		avatar.current = e.target.value;
+	function handleImageURL(e) {
+		avatar.current = e.target.value.trim();
 
-		if ((e.target.value.trim() === '') || (!isValidURL(e.target.value))) {
+		if ((avatar.current === '') || (!isValidImageURL(avatar.current))) {
 			setInputError(errURL);
 			setClassSuccess('')
 		} else {
 			setInputError(okURL);
-			setClassSuccess('form__input-success')
+			setClassSuccess('form__input-success');
 		}
 	}
+
 	return (
 		<PopupWithForm
 			title="Editar Avatar"
@@ -46,7 +47,7 @@ export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 				className="form__input modal__input edit-avatar__link"
 				placeholder="URL de la imagen"
 				required
-				onChange={handleURL}
+				onChange={handleImageURL}
 			/>
 			<span className={`edit-avatar__link-error form__input-error ${classSuccess}`}>
 				{inputError}
