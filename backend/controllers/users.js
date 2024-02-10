@@ -54,7 +54,6 @@ const createUser = async (req, res) => {
       return res.status(400).send({ message: 'Error en la validación de los datos' });
     }
     return res.status(500).send({ message: 'Error al crear el usuario en el servidor' });
-    // aqui le agregué message
   }
 };
 

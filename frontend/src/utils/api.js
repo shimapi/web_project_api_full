@@ -5,118 +5,165 @@ export class Api {
 	}
 
 	async _useFetch(token, url, method, body) {
-		const res = await fetch(url, {
-			headers: {
-				authorization: `Bearer ${token}`,
-				"Content-Type": "application/json",
-			},
-			method,
-			body: JSON.stringify(body),
-		});
+		try {
+			const res = await fetch(url, {
+				headers: {
+					authorization: `Bearer ${token}`,
+					"Content-Type": "application/json",
+				},
+				method,
+				body: JSON.stringify(body),
+			});
 
-		if (res.ok) {
-			return res.json();
+			if (res.ok) {
+				return res.json();
+			}
+			return Promise.reject(`Error: ${res.status}`);
+		} catch (error) {
+			return error;
 		}
-		return Promise.reject(`Error: ${res.status}`);
 	}
 
 	async getProfileInitialInfo(token) {
-		const profileInitialInfo = await this._useFetch(
-			token,
-			`${this.originURL}/users/me`,
-			"GET"
-		);
-		return profileInitialInfo;
+		try {
+			const profileInitialInfo = await this._useFetch(
+				token,
+				`${this.originURL}/users/me`,
+				"GET"
+			);
+			return profileInitialInfo;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async getCards(token) {
-		const cards = await this._useFetch(token, `${this.originURL}/cards`, "GET");
-		return cards;
+		try {
+			const cards = await this._useFetch(token, `${this.originURL}/cards`, "GET");
+			return cards;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async editProfileInfo(token, name, about) {
-		const profileInfo = await this._useFetch(
-			token,
-			`${this.originURL}/users/me`,
-			"PATCH",
-			{ name, about }
-		);
-		return profileInfo;
+		try {
+			const profileInfo = await this._useFetch(
+				token,
+				`${this.originURL}/users/me`,
+				"PATCH",
+				{ name, about }
+			);
+			return profileInfo;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async editProfileAvatar(token, avatar) {
-		const profileAvatar = await this._useFetch(
-			token,
-			`${this.originURL}/users/me/avatar`,
-			"PATCH",
-			{ avatar }
-		);
-		return profileAvatar;
+		try {
+			const profileAvatar = await this._useFetch(
+				token,
+				`${this.originURL}/users/me/avatar`,
+				"PATCH",
+				{ avatar }
+			);
+			return profileAvatar;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async addNewCard(token, name, link) {
-		const newCard = await this._useFetch(token, `${this.originURL}/cards`, "POST", {
-			name,
-			link,
-		});
-		return newCard;
+		try {
+			const newCard = await this._useFetch(token, `${this.originURL}/cards`, "POST", {
+				name,
+				link,
+			});
+			return newCard;
+		}
+		catch (error) {
+			return error;
+		}
 	}
 
 	async deleteCard(token, cardId) {
-		const deletedCard = await this._useFetch(
-			token,
-			`${this.originURL}/cards/${cardId}`,
-			"DELETE"
-		);
-		return deletedCard;
+		try {
+			const deletedCard = await this._useFetch(
+				token,
+				`${this.originURL}/cards/${cardId}`,
+				"DELETE"
+			);
+			return deletedCard;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async likeCard(token, cardId) {
-		const likesCard = await this._useFetch(
-			token,
-			`${this.originURL}/cards/likes/${cardId}`,
-			"PUT"
-		);
-		return likesCard;
+		try {
+			const likesCard = await this._useFetch(
+				token,
+				`${this.originURL}/cards/likes/${cardId}`,
+				"PUT"
+			);
+			return likesCard;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async dislikeCard(token, cardId) {
-		const dislikesCard = await this._useFetch(
-			token,
-			`${this.originURL}/cards/likes/${cardId}`,
-			"DELETE"
-		);
-		return dislikesCard;
+		try {
+			const dislikesCard = await this._useFetch(
+				token,
+				`${this.originURL}/cards/likes/${cardId}`,
+				"DELETE"
+			);
+			return dislikesCard;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async changeLikeCardStatus(token, cardId, isLiked) {
-		const changingLikeCardStatus = isLiked
-			? await this.dislikeCard(token, cardId)
-			: await this.likeCard(token, cardId);
-		return changingLikeCardStatus;
+		try {
+			const changingLikeCardStatus = isLiked
+				? await this.dislikeCard(token, cardId)
+				: await this.likeCard(token, cardId);
+			return changingLikeCardStatus;
+		} catch (error) {
+			return error;
+		}
 	}
 
 	async registerUser(email, password) {
-		const newUser = await this._useFetch(
-			`${this.originURL}/signup`,
-			"POST",
-			{
-				email,
-				password,
-			}
-		);
-		return newUser;
+		try {
+			const newUser = await this._useFetch(
+				`${this.originURL}/signup`,
+				"POST",
+				{
+					email,
+					password,
+				}
+			);
+			return newUser;
+		} catch (error) {
+			return error;
+		}
 	}
 
-
-
 	async checkUserToken(token) {
-		return fetch(`${this.originURL}/users/me`, {
-			method: "GET",
-			headers: {
-				authorization: `Bearer ${token}`,
-			},
-		});
+		try {
+			return fetch(`${this.originURL}/users/me`, {
+				method: "GET",
+				headers: {
+					authorization: `Bearer ${token}`,
+				},
+			});
+		} catch (error) {
+			return error;
+		}
 	}
 }
 

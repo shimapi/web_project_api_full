@@ -26,7 +26,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 	}
 
 	const handleChangeUsername = (e) => {
-		if (e.target.value.length < 2) {
+		if ((e.target.value.length < 2) && (e.target.value.length < 30)) {
 			setInputErrorUsername(errEditName);
 			setClassSuccessUsername('');
 		} else {
@@ -36,7 +36,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 		setName(e.target.value);
 	};
 	const handleChangeDescription = (e) => {
-		if (e.target.value.length < 2) {
+		if ((e.target.value.length < 2) && (e.target.value.length < 30)) {
 			setInputErrorDescription(errEditOcupation);
 			setClassSuccessDescription('');
 		} else {
@@ -62,7 +62,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 				className="form__input modal__input edit-profile__input edit-profile__name"
 				required
 				minLength="2"
-				maxLength="40"
+				maxLength="30"
 				value={name || ""}
 				onChange={handleChangeUsername}
 			/>
@@ -76,7 +76,7 @@ export default function EditProfilePopup({ isOpen, onClose, onUpdateUser }) {
 				className="form__input modal__input edit-profile__input edit-profile__about"
 				required
 				minLength="2"
-				maxLength="200"
+				maxLength="30"
 				value={description || ""}
 				onChange={handleChangeDescription}
 			/>
