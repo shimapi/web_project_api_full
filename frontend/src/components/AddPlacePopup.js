@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import PopupWithForm from "./PopupWithForm.js";
 import { errAddPlaceName, errURL, classSuccessStyle, inputOK, } from '../utils/variables.js';
 import { isValidImageURL } from '../utils/helpers.js';
@@ -10,6 +10,19 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 	const [inputErrorLink, setInputErrorLink] = useState('');
 	const [classSuccessName, setClassSuccessName] = useState('');
 	const [classSuccessLink, setClassSuccessLink] = useState('');
+
+
+	useEffect(() => {
+		setPlaceName('');
+		setPlaceLink('');
+		setInputErrorName('');
+		setInputErrorLink('');
+	}, [isOpen]);
+
+	function handleSubmit(e) {
+		e.preventDefault();
+		onAddPlace(placeName, placeLink);
+	}
 
 	function handleName(e) {
 		if (e.target.value.length < 2) {
@@ -31,15 +44,6 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 		}
 		setPlaceLink(e.target.value);
 	}
-	function handleSubmit(e) {
-		e.preventDefault();
-		onAddPlace(placeName, placeLink);
-		setPlaceName('nada');
-		setPlaceLink('nada');
-		console.log('handleSubmit');
-		console.log("placename", placeName);
-		console.log("placelink", placeLink);
-	}
 	return (
 		<PopupWithForm
 			title="Añadir Lugar"
@@ -57,6 +61,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 				minLength="2"
 				maxLength="30"
 				required
+				value={placeName}
 				onChange={handleName}
 			/>
 			<span className={`add-place__name-error form__input-error ${classSuccessName} `}>
@@ -69,6 +74,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 				className="form__input modal__input add-place__link"
 				placeholder="URL de la imagen"
 				required
+				value={placeLink}
 				onChange={handleLink}
 			/>
 			<span className={`add-place__link-error form__input-error ${classSuccessLink}`}>
