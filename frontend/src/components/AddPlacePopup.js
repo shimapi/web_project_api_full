@@ -11,10 +11,6 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 	const [classSuccessName, setClassSuccessName] = useState('');
 	const [classSuccessLink, setClassSuccessLink] = useState('');
 
-	function handleSubmit(e) {
-		e.preventDefault();
-		onAddPlace(placeName, placeLink);
-	}
 	function handleName(e) {
 		if (e.target.value.length < 2) {
 			setInputErrorName(errAddPlaceName);
@@ -23,7 +19,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 			setInputErrorName(inputOK);
 			setClassSuccessName(classSuccessStyle);
 		}
-		setPlaceName(e.target.value);
+		setPlaceName(e.target.value.trim());
 	}
 	function handleLink(e) {
 		if ((e.target.value.length < 2) || (!isValidImageURL(e.target.value))) {
@@ -34,6 +30,15 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 			setClassSuccessLink(classSuccessStyle);
 		}
 		setPlaceLink(e.target.value);
+	}
+	function handleSubmit(e) {
+		e.preventDefault();
+		onAddPlace(placeName, placeLink);
+		setPlaceName('nada');
+		setPlaceLink('nada');
+		console.log('handleSubmit');
+		console.log("placename", placeName);
+		console.log("placelink", placeLink);
 	}
 	return (
 		<PopupWithForm

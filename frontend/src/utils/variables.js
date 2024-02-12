@@ -1,4 +1,5 @@
-export const MAIN_URL = "https://api.shirley.lat"; // http://localhost:3005
+//export const MAIN_URL = "https://api.shirley.lat"; // http://localhost:3005
+export const MAIN_URL = "http://localhost:3005"
 
 export const errAddPlaceName = 'Por favor escribe el *nombre* del lugar';
 export const errEditName = 'Por favor escribe tu nombre';
