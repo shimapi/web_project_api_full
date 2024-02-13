@@ -35,9 +35,20 @@ function App() {
 		async function handleToken() {
 			if (localStorage.getItem("userToken")) {
 				const token = localStorage.getItem("userToken");
-				setToken(token);
-				setLoggedIn(true);
-				navigate("/");
+				try {
+					const res = await api.checkUserToken(token);
+					const resJSON = await res.json();
+					if (resJSON) {
+						setToken(token);
+						setLoggedIn(true);
+						navigate("/");
+					}
+				} catch (error) {
+					localStorage.removeItem("userToken");
+					localStorage.removeItem("userEmail");
+					//	setCurrentUser({});
+					navigate("/signin");
+				}
 			}
 		}
 		handleToken();
@@ -76,6 +87,7 @@ function App() {
 		setIsImageOpen(false);
 		setError('');
 		setOpenInfoTool(false);
+		setSelectedCard({});
 	}
 
 	useEscKey(closeAllPopups);

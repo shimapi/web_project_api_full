@@ -6,7 +6,7 @@ import { isValidImageURL } from '../utils/helpers.js'
 
 export default function EditAvatarPopup({ isOpen, onClose, onUpdateAvatar }) {
 	const { currentUser } = useContext(CurrentUserContext);
-	const [avatarURL, setAvatarURL] = useState(currentUser.avatar);
+	const [avatarURL, setAvatarURL] = useState(currentUser.avatar || '');
 	const [inputError, setInputError] = useState('');
 	const [classSuccess, setClassSuccess] = useState('');
 

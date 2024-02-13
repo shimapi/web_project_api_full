@@ -18,7 +18,7 @@ app.use(cors());
 app.options('*', cors());
 app.use(express.urlencoded({ extended: true }));
 
-mongoose.connect(process.env.DB_MONGO);
+mongoose.connect(process.env.DB_MONGO || 'mongodb://127.0.0.1:27017/aroundb');
 
 app.get('/crash-test', () => {
   setTimeout(() => {
@@ -40,14 +40,14 @@ app.get('/', (req, res) => {
 });
 
 app.use(errorLogger);
-app.use(errors());// controlador de errores de celebrate centralizados
+app.use(errors());
 
-app.use((error, req, res, next) => res.status(400).send({ message: '404: Recurso no encontrado' }));
+app.use((error, req, res) => res.status(400).send({ message: '404: Recurso no encontrado' }));
 
-app.use((error, req, res, next) => res.status(500).send({ message: '500: Error interno del servidor' }));
-
-app.use((error, req, res, next) => {
+app.use((error, req, res) => res.status(500).send({ message: '500: Error interno del servidor' }));
+/*
+app.use((error, req, res) => {
   res.send({ message: error.message });
-});
+}); */
 
-app.listen(process.env.PORT);
+app.listen(process.env.PORT || 3000);

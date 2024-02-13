@@ -62,6 +62,7 @@ export default function Login({ handleUserLogin, handleChangeLoginState }) {
 					className="access__input form__input"
 					placeholder="Contraseña"
 					onChange={handleChangePassword}
+					autoComplete="on"
 					required
 				/>
 				<span className="add-place__link-error form__input-error"></span>
