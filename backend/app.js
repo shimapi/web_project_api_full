@@ -45,9 +45,9 @@ app.use(errors());
 app.use((error, req, res) => res.status(400).send({ message: '404: Recurso no encontrado' }));
 
 app.use((error, req, res) => res.status(500).send({ message: '500: Error interno del servidor' }));
-/*
+
 app.use((error, req, res) => {
-  res.send({ message: error.message });
-}); */
+  res.status(error.statusCode).send({ message: error.message });
+});
 
 app.listen(process.env.PORT || 3000);
