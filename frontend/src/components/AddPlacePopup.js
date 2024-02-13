@@ -32,7 +32,7 @@ export default function AddPlacePopup({ isOpen, onClose, onAddPlace }) {
 			setInputErrorName(inputOK);
 			setClassSuccessName(classSuccessStyle);
 		}
-		setPlaceName(e.target.value.trim());
+		setPlaceName(e.target.value);
 	}
 	function handleLink(e) {
 		if ((e.target.value.length < 2) || (!isValidImageURL(e.target.value))) {
